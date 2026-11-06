@@ -1,5 +1,15 @@
 {
-  "channelUrl": "#",
+  "channelUrl": "https://t.me/tele_moves",
+  "categories": [
+    "أفلام",
+    "أكشن",
+    "دراما",
+    "مغامرة",
+    "كوميدي",
+    "رعب",
+    "خيال علمي",
+    "مسلسلات سورية"
+  ],
   "movies": [
     {
       "id": "nosferatu-1922",
