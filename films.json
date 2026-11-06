@@ -12,6 +12,16 @@
   ],
   "movies": [
     {
+      "id": "work-1794005279407",
+      "title": "مسلسل احلام كبيره",
+      "year": "2002",
+      "category": "مسلسلات سورية",
+      "description": "سوريا وائل",
+      "image": "https://image.tmdb.org/t/p/w500/6z2Qe1mFr9WJf5n8pG3n7w.jpg",
+      "watchLink": "https://t.me/techno_syria/5027",
+      "downloadLink": "https://t.me/techno_syria/5027"
+    },
+    {
       "id": "nosferatu-1922",
       "title": "Nosferatu",
       "year": "1922",
