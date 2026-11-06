@@ -128,4 +128,174 @@ footer strong{color:var(--light)}
 .details p{line-height:1.9}
 .details .main-btn{margin-top:10px}
 @media(max-width:900px){
-  .
+  .movies{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  header{padding:0 5%;height:65px}
+  nav{gap:12px}nav a{font-size:12px}
+  .logo{font-size:21px}
+  .hero{padding:65px 6%;min-height:350px}
+  .hero h1{font-size:31px}
+  main{padding:35px 5%}
+  .movies{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+  .details{display:block}
+  .details img{width:110px;margin-bottom:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Tele<span>Movies</span></div>
+  <nav>
+    <a href="#">الرئيسية</a>
+    <a href="#movies">الأفلام</a>
+    <a href="#about">عن الموقع</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="tag">عالمك السينمائي يبدأ هنا</div>
+    <h1>اكتشف أفلاماً<br>تستحق المشاهدة 🎬</h1>
+    <p>مكتبة سينمائية تجمع لك الأفلام في مكان واحد.
+       اكتشف، تعرّف على التفاصيل، واستمتع بالمشاهدة.</p>
+    <div class="search">
+      <input id="search" placeholder="ابحث عن فيلم..." />
+      <button onclick="renderMovies()">بحث</button>
+    </div>
+  </div>
+</section>
+
+<main id="movies">
+  <div class="section-head">
+    <h2>أحدث الأفلام</h2>
+    <span id="count"></span>
+  </div>
+  <div class="movies" id="movieList"></div>
+</main>
+
+<footer id="about">
+  <strong>TeleMovies</strong>
+  <p>بوابتك لاكتشاف عالم السينما.</p>
+  © 2026 TeleMovies - جميع الحقوق محفوظة
+</footer>
+
+<!-- نافذة الاشتراك الاختيارية -->
+<div class="overlay" id="subscribe">
+  <div class="dialog">
+    <button class="close" onclick="closeSubscribe()">×</button>
+    <div style="font-size:42px">🎬</div>
+    <h2>أهلاً بك في TeleMovies</h2>
+    <p>انضم إلى قناتنا على تيليغرام لتصلك أحدث إضافات الأفلام والمستجدات.</p>
+    <a class="main-btn" id="channelLink" href="#" target="_blank"
+       style="display:block;text-decoration:none">اشترك بالقناة</a>
+    <a class="skip" href="#" onclick="closeSubscribe();return false">
+      متابعة إلى الموقع
+    </a>
+  </div>
+</div>
+
+<!-- تفاصيل الفيلم -->
+<div class="overlay" id="details" onclick="if(event.target===this)closeDetails()">
+  <div class="dialog details">
+    <button class="close" onclick="closeDetails()">×</button>
+    <img id="detailImage" src="" alt="بوستر الفيلم">
+    <div>
+      <h2 id="detailTitle"></h2>
+      <p id="detailDescription"></p>
+      <p id="detailYear" style="color:#39b77c"></p>
+      <a id="watchLink" class="main-btn" href="#" target="_blank"
+         style="display:inline-block;text-decoration:none">
+        مشاهدة عبر تيليغرام
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// بيانات تجريبية للعرض فقط
+const movies = [
+  {
+    title:"The General",
+    year:"1926",
+    category:"كوميديا",
+    description:"فيلم كوميدي صامت من كلاسيكيات السينما للمخرج باستر كيتون.",
+    image:"https://image.tmdb.org/t/p/w500/6z2Qe1mFr9WJf5n8pG3n7w.jpg",
+    link:"#"
+  },
+  {
+    title:"Metropolis",
+    year:"1927",
+    category:"خيال علمي",
+    description:"رحلة سينمائية كلاسيكية إلى مدينة مستقبلية.",
+    image:"https://image.tmdb.org/t/p/w500/pxbGZewX327IbTvrCVRJgcLhe2.jpg",
+    link:"#"
+  },
+  {
+    title:"Nosferatu",
+    year:"1922",
+    category:"رعب",
+    description:"أحد أشهر أفلام الرعب الصامتة في تاريخ السينما.",
+    image:"https://image.tmdb.org/t/p/w500/lsy3aEsEfYIHdLRk4dontZ4s85h.jpg",
+    link:"#"
+  }
+];
+
+const list=document.getElementById("movieList");
+
+function renderMovies(){
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  const filtered=movies.filter(m=>m.title.toLowerCase().includes(q));
+  document.getElementById("count").textContent=filtered.length+" أفلام";
+  list.innerHTML="";
+
+  if(!filtered.length){
+    list.innerHTML='<div class="empty">لم نعثر على أفلام مطابقة لبحثك.</div>';
+    return;
+  }
+
+  filtered.forEach((m)=>{
+    const card=document.createElement("article");
+    card.className="movie";
+    card.innerHTML=`
+      <div class="poster">
+        <img src="${m.image}" alt="${m.title}" loading="lazy">
+      </div>
+      <div class="movie-info">
+        <h3>${m.title}</h3>
+        <p>${m.year} · ${m.category}</p>
+      </div>`;
+    card.onclick=()=>showDetails(m);
+    list.appendChild(card);
+  });
+}
+
+function showDetails(m){
+  document.getElementById("detailImage").src=m.image;
+  document.getElementById("detailTitle").textContent=m.title;
+  document.getElementById("detailDescription").textContent=m.description;
+  document.getElementById("detailYear").textContent=m.year+" · "+m.category;
+  document.getElementById("watchLink").href=m.link;
+  document.getElementById("details").classList.add("show");
+}
+
+function closeDetails(){
+  document.getElementById("details").classList.remove("show");
+}
+
+function closeSubscribe(){
+  localStorage.setItem("teleMoviesSubscribeSeen","yes");
+  document.getElementById("subscribe").classList.remove("show");
+}
+
+document.getElementById("search").addEventListener("input",renderMovies);
+
+renderMovies();
+
+if(!localStorage.getItem("teleMoviesSubscribeSeen")){
+  setTimeout(()=>document.getElementById("subscribe").classList.add("show"),700);
+}
+</script>
+</body>
+</html>
