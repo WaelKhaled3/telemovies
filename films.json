@@ -2,26 +2,6 @@
   "channelUrl": "#",
   "movies": [
     {
-      "id": "the-general-1926",
-      "title": "The General",
-      "year": "1926",
-      "category": "كوميديا",
-      "description": "فيلم كوميدي صامت من كلاسيكيات السينما للمخرج باستر كيتون.",
-      "image": "https://image.tmdb.org/t/p/w500/6z2Qe1mFr9WJf5n8pG3n7w.jpg",
-      "watchLink": "#",
-      "downloadLink": ""
-    },
-    {
-      "id": "metropolis-1927",
-      "title": "Metropolis",
-      "year": "1927",
-      "category": "خيال علمي",
-      "description": "رحلة سينمائية كلاسيكية إلى مدينة مستقبلية.",
-      "image": "https://image.tmdb.org/t/p/w500/pxbGZewX327IbTvrCVRJgcLhe2.jpg",
-      "watchLink": "#",
-      "downloadLink": ""
-    },
-    {
       "id": "nosferatu-1922",
       "title": "Nosferatu",
       "year": "1922",
