@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>إدارة TeleMovies</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box}body{margin:0;background:#090d0c;color:#f3f5f3;font-family:Cairo,sans-serif;padding:24px}
+.wrap{max-width:1000px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:25px;margin:0}h1 span{color:#39b77c}.muted{color:#9aa69e;font-size:13px}
+.panel{background:#111917;border:1px solid #ffffff18;border-radius:14px;padding:18px;margin:15px 0}
+button,.btn{font-family:inherit;border:0;border-radius:8px;padding:10px 15px;background:#176b49;color:white;cursor:pointer;text-decoration:none;font-size:14px}
+button.secondary{background:#27332d}button.danger{background:#873b3b}button:hover,.btn:hover{filter:brightness(1.15)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:13px;color:#cbd4ce}
+input,textarea,select{width:100%;background:#0a100d;border:1px solid #ffffff24;border-radius:8px;padding:11px;color:white;font:inherit;outline:none}textarea{min-height:90px;resize:vertical}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.movie{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #ffffff12}.movie:last-child{border:0}.movie img{width:55px;height:75px;object-fit:cover;border-radius:6px;background:#202b25}.movie .info{flex:1;min-width:0}.movie strong{display:block}.movie small{color:#9aa69e}
+.note{background:#302815;border:1px solid #80652c;color:#f0d99e;padding:12px;border-radius:9px;font-size:13px;line-height:1.9}
+.preview{width:90px;height:125px;object-fit:cover;border-radius:8px;background:#222}
+@media(max-width:650px){body{padding:14px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.movie{align-items:flex-start}.movie .actions{margin:5px 0 0}}
+</style></head>
+<body><div class="wrap">
+<div class="top"><div><h1>Tele<span>Movies</span> — لوحة الإدارة</h1><div class="muted">إدارة مكتبة الأفلام يدوياً</div></div><a class="btn" href="./index.html" target="_blank">عرض الموقع</a></div>
+<div class="note">طريقة العمل: عدّل الأفلام هنا ثم اضغط «تنزيل ملف الأفلام». ارفع ملف <b>films.json</b> الناتج إلى المستودع مكان الملف القديم. بعد الرفع سيظهر التعديل لجميع الزوار. هذه اللوحة لا ترفع إلى GitHub تلقائياً.</div>
+<div class="panel"><h2 style="margin-top:0">إعدادات القناة</h2><div class="field"><label>رابط قناة تيليغرام (نافذة الاشتراك)</label><input id="channelUrl" placeholder="https://t.me/YourChannel"></div></div>
+<div class="panel"><div class="top"><h2 style="margin:0">الأفلام الحالية</h2><button id="newBtn">＋ إضافة فيلم</button></div><div id="movieList"></div></div>
+<div class="panel" id="editor" style="display:none"><h2 id="editorTitle" style="margin-top:0">إضافة فيلم</h2>
+<form id="movieForm"><input type="hidden" id="movieId">
+<div class="grid">
+<div class="field"><label>اسم الفيلم *</label><input id="title" required></div>
+<div class="field"><label>سنة الإصدار</label><input id="year" inputmode="numeric"></div>
+<div class="field"><label>التصنيف</label><input id="category" placeholder="أكشن، دراما، رعب..."></div>
+<div class="field"><label>رابط مشاهدة تيليغرام</label><input id="watchLink" placeholder="https://t.me/..."></div>
+<div class="field full"><label>رابط تحميل (اختياري)</label><input id="downloadLink" placeholder="https://t.me/..."></div>
+<div class="field full"><label>وصف الفيلم</label><textarea id="description"></textarea></div>
+<div class="field full"><label>رابط صورة البوستر</label><input id="imageUrl" placeholder="https://..."></div>
+<div class="field"><label>أو اختر صورة من جهازك</label><input id="imageFile" type="file" accept="image/*"></div>
+<div class="field"><label>معاينة البوستر</label><img id="preview" class="preview" alt="معاينة"></div>
+</div><div class="actions"><button type="submit">حفظ الفيلم</button><button type="button" class="secondary" id="cancelBtn">إلغاء</button></div>
+</form></div>
+<div class="panel"><h2 style="margin-top:0">حفظ التغييرات</h2><p class="muted">بعد الانتهاء من جميع التعديلات، نزّل ملف JSON وارفعه إلى GitHub مع استبدال الملف القديم.</p><div class="actions"><button id="exportBtn">تنزيل ملف الأفلام films.json</button><label class="btn" for="importFile">استيراد ملف أفلام</label><input id="importFile" type="file" accept=".json,application/json" style="display:none"></div></div>
+</div>
+<script>
+const starter = {"channelUrl": "#", "movies": [{"id": "the-general-1926", "title": "The General", "year": "1926", "category": "كوميديا", "description": "فيلم كوميدي صامت من كلاسيكيات السينما للمخرج باستر كيتون.", "image": "https://image.tmdb.org/t/p/w500/6z2Qe1mFr9WJf5n8pG3n7w.jpg", "watchLink": "#", "downloadLink": ""}, {"id": "metropolis-1927", "title": "Metropolis", "year": "1927", "category": "خيال علمي", "description": "رحلة سينمائية كلاسيكية إلى مدينة مستقبلية.", "image": "https://image.tmdb.org/t/p/w500/pxbGZewX327IbTvrCVRJgcLhe2.jpg", "watchLink": "#", "downloadLink": ""}, {"id": "nosferatu-1922", "title": "Nosferatu", "year": "1922", "category": "رعب", "description": "أحد أشهر أفلام الرعب الصامتة في تاريخ السينما.", "image": "https://image.tmdb.org/t/p/w500/lsy3aEsEfYIHdLRk4dontZ4s85h.jpg", "watchLink": "#", "downloadLink": ""}]};
+let movies = structuredClone(starter.movies);
+let channelUrl = starter.channelUrl || "#";
+let currentImage = "";
+const $ = id => document.getElementById(id);
+$("channelUrl").value = channelUrl;
+function safeText(s){return String(s ?? "");}
+function render(){
+  const root=$("movieList");root.replaceChildren();
+  if(!movies.length){root.textContent="لا توجد أفلام حالياً.";return;}
+  movies.forEach((m,i)=>{
+    const row=document.createElement("div");row.className="movie";
+    const img=document.createElement("img");img.src=m.image||"";img.alt="";
+    const info=document.createElement("div");info.className="info";
+    const name=document.createElement("strong");name.textContent=m.title||"بدون عنوان";
+    const meta=document.createElement("small");meta.textContent=[m.year,m.category].filter(Boolean).join(" · ");
+    info.append(name,meta);
+    const actions=document.createElement("div");actions.className="actions";
+    const edit=document.createElement("button");edit.className="secondary";edit.textContent="تعديل";edit.onclick=()=>editMovie(i);
+    const del=document.createElement("button");del.className="danger";del.textContent="حذف";del.onclick=()=>deleteMovie(i);
+    actions.append(edit,del);row.append(img,info,actions);root.append(row);
+  });
+}
+function openEditor(){ $("editor").style.display="block"; $("editor").scrollIntoView({behavior:"smooth"}); }
+function resetForm(){ $("movieForm").reset();$("movieId").value="";currentImage="";$("preview").src="";$("editorTitle").textContent="إضافة فيلم"; }
+function editMovie(i){
+  const m=movies[i];$("movieId").value=m.id;$("title").value=m.title||"";$("year").value=m.year||"";
+  $("category").value=m.category||"";$("watchLink").value=m.watchLink||m.link||"";
+  $("downloadLink").value=m.downloadLink||"";$("description").value=m.description||"";
+  $("imageUrl").value=(m.image||"").startsWith("data:")?"":(m.image||"");
+  currentImage=m.image||"";$("preview").src=currentImage;$("editorTitle").textContent="تعديل الفيلم";openEditor();
+}
+function deleteMovie(i){if(!confirm("متأكد بدك تحذف فيلم «"+movies[i].title+"»؟"))return;movies.splice(i,1);render();}
+$("newBtn").onclick=()=>{resetForm();$("editorTitle").textContent="إضافة فيلم";openEditor();};
+$("cancelBtn").onclick=()=>{$("editor").style.display="none";resetForm();};
+$("imageUrl").oninput=()=>{currentImage=$("imageUrl").value.trim();$("preview").src=currentImage;};
+$("imageFile").onchange=async e=>{
+  const file=e.target.files[0];if(!file)return;
+  if(file.size>3*1024*1024){alert("حجم الصورة أكبر من 3MB. اختر صورة أصغر.");e.target.value="";return;}
+  const reader=new FileReader();reader.onload=()=>{currentImage=reader.result;$("preview").src=currentImage;$("imageUrl").value="";};reader.readAsDataURL(file);
+};
+$("movieForm").onsubmit=e=>{
+  e.preventDefault();
+  const id=$("movieId").value||("film-"+Date.now());
+  const obj={id,title:$("title").value.trim(),year:$("year").value.trim(),category:$("category").value.trim(),
+    description:$("description").value.trim(),image:currentImage||$("imageUrl").value.trim(),
+    watchLink:$("watchLink").value.trim(),downloadLink:$("downloadLink").value.trim()};
+  if(!obj.title){alert("اكتب اسم الفيلم أولاً.");return;}
+  const i=movies.findIndex(x=>x.id===id);if(i>=0)movies[i]=obj;else movies.unshift(obj);
+  render();$("editor").style.display="none";resetForm();
+};
+$("exportBtn").onclick=()=>{
+  channelUrl=$("channelUrl").value.trim()||"#";
+  const blob=new Blob([JSON.stringify({channelUrl,movies},null,2)],{type:"application/json;charset=utf-8"});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="films.json";a.click();URL.revokeObjectURL(url);
+};
+$("importFile").onchange=async e=>{
+  const file=e.target.files[0];if(!file)return;
+  try{const d=JSON.parse(await file.text());if(!Array.isArray(d.movies))throw new Error();
+    movies=d.movies;channelUrl=d.channelUrl||"#";$("channelUrl").value=channelUrl;render();alert("تم استيراد الأفلام بنجاح.");
+  }catch(err){alert("الملف غير صالح أو لا يحتوي على قائمة أفلام.");}
+  e.target.value="";
+};
+render();
+</script></body></html>

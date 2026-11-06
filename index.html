@@ -7,295 +7,83 @@
 <meta name="description" content="اكتشف عالم الأفلام في TeleMovies">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
-
-:root {
-  --bg:#090d0c;
-  --panel:#111917;
-  --green:#176b49;
-  --light:#39b77c;
-  --text:#f3f5f3;
-  --muted:#929c96;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'Cairo',sans-serif;
-}
-button,input{font-family:inherit}
-header{
-  height:75px;padding:0 7%;display:flex;align-items:center;
-  justify-content:space-between;border-bottom:1px solid #ffffff12;
-  background:#090d0cf2;position:sticky;top:0;z-index:5;
-  backdrop-filter:blur(15px);
-}
-.logo{font-size:25px;font-weight:900;letter-spacing:-1px}
-.logo span{color:var(--light)}
-nav{display:flex;gap:27px}
-nav a{color:#c2cbc5;text-decoration:none;font-size:14px}
-nav a:hover{color:var(--light)}
-.hero{
-  min-height:390px;padding:80px 9%;
-  display:flex;align-items:center;
-  background:linear-gradient(90deg,#090d0c 10%,#090d0cce 65%,#090d0c80),
-  url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600')
-  center/cover;
-}
-.hero-content{max-width:570px}
-.tag{color:var(--light);font-size:13px;font-weight:700}
-.hero h1{font-size:43px;line-height:1.5;margin:12px 0}
-.hero p{color:#b2bdb6;line-height:2;font-size:15px}
-.search{
-  display:flex;gap:10px;margin-top:25px;max-width:470px
-}
-.search input{
-  flex:1;min-width:0;padding:14px 17px;border-radius:9px;
-  background:#18221e;border:1px solid #ffffff18;color:white;
-  outline:none;
-}
-.search input:focus{border-color:var(--light)}
-.search button,.main-btn{
-  background:var(--green);color:white;border:0;
-  border-radius:9px;padding:12px 20px;cursor:pointer;
-}
-.search button:hover,.main-btn:hover{background:#21865c}
-main{padding:45px 7%}
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:25px;gap:15px
-}
-.section-head h2{font-size:23px;margin:0}
-.section-head span{color:var(--muted);font-size:12px}
-.movies{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:22px;
-}
-.movie{cursor:pointer;min-width:0}
-.poster{
-  position:relative;overflow:hidden;border-radius:11px;
-  aspect-ratio:2/3;background:#17211c;
-}
-.poster img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .4s;
-}
-.movie:hover .poster img{transform:scale(1.07)}
-.poster:after{
-  content:"";position:absolute;inset:40% 0 0;
-  background:linear-gradient(transparent,#000b);
-}
-.movie-info{padding:10px 2px}
-.movie-info h3{font-size:15px;margin:0 0 5px}
-.movie-info p{font-size:12px;color:var(--muted);margin:0}
-.movie:hover h3{color:var(--light)}
-.empty{
-  grid-column:1/-1;text-align:center;padding:60px;
-  color:var(--muted)
-}
-footer{
-  border-top:1px solid #ffffff12;padding:30px 7%;
-  color:var(--muted);font-size:12px;text-align:center;
-}
-footer strong{color:var(--light)}
-.overlay{
-  position:fixed;inset:0;background:#000b;
-  display:none;align-items:center;justify-content:center;
-  padding:18px;z-index:20;backdrop-filter:blur(6px);
-}
-.overlay.show{display:flex}
-.dialog{
-  background:#111a16;border:1px solid #ffffff1a;
-  border-radius:17px;padding:30px;max-width:420px;
-  width:100%;text-align:center;position:relative;
-}
-.close{
-  position:absolute;left:15px;top:12px;
-  background:none;border:0;color:#aab4ad;
-  font-size:25px;cursor:pointer;
-}
-.dialog h2{font-size:23px;margin:12px 0}
-.dialog p{color:var(--muted);font-size:13px;line-height:2}
-.dialog .main-btn{display:block;width:100%;margin-top:18px}
-.skip{
-  display:block;color:#aeb8b1;text-decoration:none;
-  margin-top:14px;font-size:13px
-}
-.details{
-  max-width:650px;text-align:right;
-  display:flex;gap:22px;align-items:flex-start
-}
-.details img{width:145px;aspect-ratio:2/3;object-fit:cover;border-radius:10px}
-.details h2{margin:0 0 8px}
-.details p{line-height:1.9}
-.details .main-btn{margin-top:10px}
-@media(max-width:900px){
-  .movies{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
-@media(max-width:600px){
-  header{padding:0 5%;height:65px}
-  nav{gap:12px}nav a{font-size:12px}
-  .logo{font-size:21px}
-  .hero{padding:65px 6%;min-height:350px}
-  .hero h1{font-size:31px}
-  main{padding:35px 5%}
-  .movies{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-  .details{display:block}
-  .details img{width:110px;margin-bottom:12px}
-}
+:root{--bg:#090d0c;--panel:#111917;--green:#176b49;--light:#39b77c;--text:#f3f5f3;--muted:#929c96}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif}
+button,input{font-family:inherit}header{height:75px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;background:#090d0cf2;position:sticky;top:0;z-index:5;backdrop-filter:blur(15px)}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--light)}nav{display:flex;gap:27px}nav a{color:#c2cbc5;text-decoration:none;font-size:14px}nav a:hover{color:var(--light)}
+.hero{min-height:390px;padding:80px 9%;display:flex;align-items:center;background:linear-gradient(90deg,#090d0c 10%,#090d0cce 65%,#090d0c80),url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600') center/cover}
+.hero-content{max-width:570px}.tag{color:var(--light);font-size:13px;font-weight:700}.hero h1{font-size:43px;line-height:1.5;margin:12px 0}.hero p{color:#b2bdb6;line-height:2;font-size:15px}
+.search{display:flex;gap:10px;margin-top:25px;max-width:470px}.search input{flex:1;min-width:0;padding:14px 17px;border-radius:9px;background:#18221e;border:1px solid #ffffff18;color:white;outline:none}.search input:focus{border-color:var(--light)}
+.search button,.main-btn{background:var(--green);color:white;border:0;border-radius:9px;padding:12px 20px;cursor:pointer;text-decoration:none;display:inline-block}.search button:hover,.main-btn:hover{background:#21865c}
+main{padding:45px 7%}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px;gap:15px}.section-head h2{font-size:23px;margin:0}.section-head span{color:var(--muted);font-size:12px}
+.movies{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px}.movie{cursor:pointer;min-width:0}.poster{position:relative;overflow:hidden;border-radius:11px;aspect-ratio:2/3;background:#17211c}.poster img{width:100%;height:100%;object-fit:cover;transition:transform .4s}.movie:hover .poster img{transform:scale(1.07)}.poster:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#000b)}
+.movie-info{padding:10px 2px}.movie-info h3{font-size:15px;margin:0 0 5px}.movie-info p{font-size:12px;color:var(--muted);margin:0}.movie:hover h3{color:var(--light)}.empty{grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)}
+footer{border-top:1px solid #ffffff12;padding:30px 7%;color:var(--muted);font-size:12px;text-align:center}footer strong{color:var(--light)}
+.overlay{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:20;backdrop-filter:blur(6px)}.overlay.show{display:flex}
+.dialog{background:#111a16;border:1px solid #ffffff1a;border-radius:17px;padding:30px;max-width:420px;width:100%;text-align:center;position:relative}
+.close{position:absolute;left:15px;top:12px;background:none;border:0;color:#aab4ad;font-size:25px;cursor:pointer}.dialog h2{font-size:23px;margin:12px 0}.dialog p{color:var(--muted);font-size:13px;line-height:2}.dialog .main-btn{display:block;width:100%;margin-top:18px}
+.skip{display:block;color:#aeb8b1;text-decoration:none;margin-top:14px;font-size:13px}.details{max-width:650px;text-align:right;display:flex;gap:22px;align-items:flex-start}.details img{width:145px;aspect-ratio:2/3;object-fit:cover;border-radius:10px}.details h2{margin:0 0 8px}.details p{line-height:1.9}.details .main-btn{margin-top:10px;margin-left:7px}
+@media(max-width:900px){.movies{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:600px){header{padding:0 5%;height:65px}nav{gap:12px}nav a{font-size:12px}.logo{font-size:21px}.hero{padding:65px 6%;min-height:350px}.hero h1{font-size:31px}main{padding:35px 5%}.movies{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.details{display:block}.details img{width:110px;margin-bottom:12px}}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="logo">Tele<span>Movies</span></div>
-  <nav>
-    <a href="#">الرئيسية</a>
-    <a href="#movies">الأفلام</a>
-    <a href="#about">عن الموقع</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="hero-content">
-    <div class="tag">عالمك السينمائي يبدأ هنا</div>
-    <h1>اكتشف أفلاماً<br>تستحق المشاهدة 🎬</h1>
-    <p>مكتبة سينمائية تجمع لك الأفلام في مكان واحد.
-       اكتشف، تعرّف على التفاصيل، واستمتع بالمشاهدة.</p>
-    <div class="search">
-      <input id="search" placeholder="ابحث عن فيلم..." />
-      <button onclick="renderMovies()">بحث</button>
-    </div>
-  </div>
-</section>
-
-<main id="movies">
-  <div class="section-head">
-    <h2>أحدث الأفلام</h2>
-    <span id="count"></span>
-  </div>
-  <div class="movies" id="movieList"></div>
-</main>
-
-<footer id="about">
-  <strong>TeleMovies</strong>
-  <p>بوابتك لاكتشاف عالم السينما.</p>
-  © 2026 TeleMovies - جميع الحقوق محفوظة
-</footer>
-
-<!-- نافذة الاشتراك الاختيارية -->
-<div class="overlay" id="subscribe">
-  <div class="dialog">
-    <button class="close" onclick="closeSubscribe()">×</button>
-    <div style="font-size:42px">🎬</div>
-    <h2>أهلاً بك في TeleMovies</h2>
-    <p>انضم إلى قناتنا على تيليغرام لتصلك أحدث إضافات الأفلام والمستجدات.</p>
-    <a class="main-btn" id="channelLink" href="#" target="_blank"
-       style="display:block;text-decoration:none">اشترك بالقناة</a>
-    <a class="skip" href="#" onclick="closeSubscribe();return false">
-      متابعة إلى الموقع
-    </a>
-  </div>
-</div>
-
-<!-- تفاصيل الفيلم -->
-<div class="overlay" id="details" onclick="if(event.target===this)closeDetails()">
-  <div class="dialog details">
-    <button class="close" onclick="closeDetails()">×</button>
-    <img id="detailImage" src="" alt="بوستر الفيلم">
-    <div>
-      <h2 id="detailTitle"></h2>
-      <p id="detailDescription"></p>
-      <p id="detailYear" style="color:#39b77c"></p>
-      <a id="watchLink" class="main-btn" href="#" target="_blank"
-         style="display:inline-block;text-decoration:none">
-        مشاهدة عبر تيليغرام
-      </a>
-    </div>
-  </div>
-</div>
-
+<header><div class="logo">Tele<span>Movies</span></div><nav><a href="#">الرئيسية</a><a href="#movies">الأفلام</a><a href="#about">عن الموقع</a></nav></header>
+<section class="hero"><div class="hero-content"><div class="tag">عالمك السينمائي يبدأ هنا</div><h1>اكتشف أفلاماً<br>تستحق المشاهدة 🎬</h1><p>مكتبة سينمائية تجمع لك الأفلام في مكان واحد. اكتشف، تعرّف على التفاصيل، واستمتع بالمشاهدة.</p><div class="search"><input id="search" placeholder="ابحث عن فيلم..."><button id="searchBtn">بحث</button></div></div></section>
+<main id="movies"><div class="section-head"><h2>أحدث الأفلام</h2><span id="count"></span></div><div class="movies" id="movieList"></div></main>
+<footer id="about"><strong>TeleMovies</strong><p>بوابتك لاكتشاف عالم السينما.</p>© 2026 TeleMovies - جميع الحقوق محفوظة</footer>
+<div class="overlay" id="subscribe"><div class="dialog"><button class="close" id="closeSubscribe">×</button><div style="font-size:42px">🎬</div><h2>أهلاً بك في TeleMovies</h2><p>انضم إلى قناتنا على تيليغرام لتصلك أحدث إضافات الأفلام والمستجدات.</p><a class="main-btn" id="channelLink" href="#" target="_blank" rel="noopener" style="display:block">اشترك بالقناة</a><a class="skip" href="#" id="skipSubscribe">متابعة إلى الموقع</a></div></div>
+<div class="overlay" id="details"><div class="dialog details"><button class="close" id="closeDetails">×</button><img id="detailImage" src="" alt="بوستر الفيلم"><div><h2 id="detailTitle"></h2><p id="detailDescription"></p><p id="detailYear" style="color:#39b77c"></p><a id="watchLink" class="main-btn" href="#" target="_blank" rel="noopener">مشاهدة عبر تيليغرام</a><a id="downloadLink" class="main-btn" href="#" target="_blank" rel="noopener" style="display:none">تحميل الفيلم</a></div></div></div>
 <script>
-// بيانات تجريبية للعرض فقط
-const movies = [
-  {
-    title:"The General",
-    year:"1926",
-    category:"كوميديا",
-    description:"فيلم كوميدي صامت من كلاسيكيات السينما للمخرج باستر كيتون.",
-    image:"https://image.tmdb.org/t/p/w500/6z2Qe1mFr9WJf5n8pG3n7w.jpg",
-    link:"#"
-  },
-  {
-    title:"Metropolis",
-    year:"1927",
-    category:"خيال علمي",
-    description:"رحلة سينمائية كلاسيكية إلى مدينة مستقبلية.",
-    image:"https://image.tmdb.org/t/p/w500/pxbGZewX327IbTvrCVRJgcLhe2.jpg",
-    link:"#"
-  },
-  {
-    title:"Nosferatu",
-    year:"1922",
-    category:"رعب",
-    description:"أحد أشهر أفلام الرعب الصامتة في تاريخ السينما.",
-    image:"https://image.tmdb.org/t/p/w500/lsy3aEsEfYIHdLRk4dontZ4s85h.jpg",
-    link:"#"
-  }
-];
-
-const list=document.getElementById("movieList");
-
+const defaults = {"channelUrl": "#", "movies": [{"id": "the-general-1926", "title": "The General", "year": "1926", "category": "كوميديا", "description": "فيلم كوميدي صامت من كلاسيكيات السينما للمخرج باستر كيتون.", "image": "https://image.tmdb.org/t/p/w500/6z2Qe1mFr9WJf5n8pG3n7w.jpg", "watchLink": "#", "downloadLink": ""}, {"id": "metropolis-1927", "title": "Metropolis", "year": "1927", "category": "خيال علمي", "description": "رحلة سينمائية كلاسيكية إلى مدينة مستقبلية.", "image": "https://image.tmdb.org/t/p/w500/pxbGZewX327IbTvrCVRJgcLhe2.jpg", "watchLink": "#", "downloadLink": ""}, {"id": "nosferatu-1922", "title": "Nosferatu", "year": "1922", "category": "رعب", "description": "أحد أشهر أفلام الرعب الصامتة في تاريخ السينما.", "image": "https://image.tmdb.org/t/p/w500/lsy3aEsEfYIHdLRk4dontZ4s85h.jpg", "watchLink": "#", "downloadLink": ""}]};
+let movies = defaults.movies;
+let channelUrl = defaults.channelUrl || "#";
+const list = document.getElementById("movieList");
+const esc = s => String(s ?? "");
+async function loadFilms(){
+  try {
+    const response = await fetch("./films.json?v=" + Date.now(), {cache:"no-store"});
+    if(!response.ok) throw new Error("films.json not found");
+    const data = await response.json();
+    if(Array.isArray(data.movies)){ movies=data.movies; channelUrl=data.channelUrl || "#"; }
+  } catch(e) { console.info("Using built-in sample films."); }
+  renderMovies();
+  document.getElementById("channelLink").href=channelUrl;
+}
 function renderMovies(){
   const q=document.getElementById("search").value.trim().toLowerCase();
-  const filtered=movies.filter(m=>m.title.toLowerCase().includes(q));
+  const filtered=movies.filter(m=>esc(m.title).toLowerCase().includes(q));
   document.getElementById("count").textContent=filtered.length+" أفلام";
-  list.innerHTML="";
-
-  if(!filtered.length){
-    list.innerHTML='<div class="empty">لم نعثر على أفلام مطابقة لبحثك.</div>';
-    return;
-  }
-
-  filtered.forEach((m)=>{
-    const card=document.createElement("article");
-    card.className="movie";
-    card.innerHTML=`
-      <div class="poster">
-        <img src="${m.image}" alt="${m.title}" loading="lazy">
-      </div>
-      <div class="movie-info">
-        <h3>${m.title}</h3>
-        <p>${m.year} · ${m.category}</p>
-      </div>`;
-    card.onclick=()=>showDetails(m);
-    list.appendChild(card);
+  list.replaceChildren();
+  if(!filtered.length){const empty=document.createElement("div");empty.className="empty";empty.textContent="لم نعثر على أفلام مطابقة لبحثك.";list.appendChild(empty);return;}
+  filtered.forEach(m=>{
+    const card=document.createElement("article");card.className="movie";
+    const poster=document.createElement("div");poster.className="poster";
+    const img=document.createElement("img");img.src=m.image||"";img.alt=m.title||"بوستر الفيلم";img.loading="lazy";poster.appendChild(img);
+    const info=document.createElement("div");info.className="movie-info";
+    const title=document.createElement("h3");title.textContent=m.title||"بدون عنوان";
+    const meta=document.createElement("p");meta.textContent=[m.year,m.category].filter(Boolean).join(" · ");
+    info.append(title,meta);card.append(poster,info);card.addEventListener("click",()=>showDetails(m));list.appendChild(card);
   });
 }
-
 function showDetails(m){
-  document.getElementById("detailImage").src=m.image;
-  document.getElementById("detailTitle").textContent=m.title;
-  document.getElementById("detailDescription").textContent=m.description;
-  document.getElementById("detailYear").textContent=m.year+" · "+m.category;
-  document.getElementById("watchLink").href=m.link;
+  document.getElementById("detailImage").src=m.image||"";
+  document.getElementById("detailTitle").textContent=m.title||"";
+  document.getElementById("detailDescription").textContent=m.description||"";
+  document.getElementById("detailYear").textContent=[m.year,m.category].filter(Boolean).join(" · ");
+  document.getElementById("watchLink").href=m.watchLink||m.link||"#";
+  const dl=document.getElementById("downloadLink");
+  if(m.downloadLink){dl.href=m.downloadLink;dl.style.display="inline-block";}else{dl.style.display="none";}
   document.getElementById("details").classList.add("show");
 }
-
-function closeDetails(){
-  document.getElementById("details").classList.remove("show");
-}
-
-function closeSubscribe(){
-  localStorage.setItem("teleMoviesSubscribeSeen","yes");
-  document.getElementById("subscribe").classList.remove("show");
-}
-
+function closeDetails(){document.getElementById("details").classList.remove("show");}
+function closeSubscribe(){localStorage.setItem("teleMoviesSubscribeSeen","yes");document.getElementById("subscribe").classList.remove("show");}
 document.getElementById("search").addEventListener("input",renderMovies);
-
-renderMovies();
-
-if(!localStorage.getItem("teleMoviesSubscribeSeen")){
-  setTimeout(()=>document.getElementById("subscribe").classList.add("show"),700);
-}
+document.getElementById("searchBtn").addEventListener("click",renderMovies);
+document.getElementById("closeSubscribe").addEventListener("click",closeSubscribe);
+document.getElementById("skipSubscribe").addEventListener("click",e=>{e.preventDefault();closeSubscribe();});
+document.getElementById("closeDetails").addEventListener("click",closeDetails);
+document.getElementById("details").addEventListener("click",e=>{if(e.target.id==="details")closeDetails();});
+loadFilms();
+if(!localStorage.getItem("teleMoviesSubscribeSeen"))setTimeout(()=>document.getElementById("subscribe").classList.add("show"),700);
 </script>
-</body>
-</html>
+</body></html>
