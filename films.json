@@ -12,6 +12,28 @@
   ],
   "movies": [
     {
+      "id": "work-1794069737345",
+      "title": "Interstellar",
+      "year": "2014",
+      "category": "خيال علمي",
+      "description": "تنتشر الأتربة في بقاع اﻷرض، والأمراض التي تضرب الموارد الطبيعية، ويصبح الجنس البشري معرض للفناء؛ بسبب نقص الطعام وانتشار الأوبئة، ولذلك يسعى مجموعة من المستكشفين بقيادة رائد الفضاء (كوبر) إلى السفر في رحلة فضائية مجهولة من خلال الثقب الدودي من أجل البحث عن موطن وكوكب آخر يصلح للحياة من أجل إنقاذ البشرية.",
+      "image": "https://media0106.elcinema.com/uploads/_315x420_66495f0eb7b631a0ae0e6f3d4c993971ef9a7025adda730b7e4c6e6f3f6e59a7.jpg",
+      "watchLink": "https://t.me/techno_syria/5027",
+      "downloadLink": "https://t.me/techno_syria/5027",
+      "telegramMessageLink": "https://t.me/techno_syria/5027",
+      "telegramChannelLink": "https://t.me/techno_syria/5027",
+      "viewingNote": "هذا العمل موجود",
+      "viewingInstructions": "اشتلاك",
+      "customButtons": [
+        {
+          "label": "نلن",
+          "url": "https://web.telegram.org/a/#5130949521",
+          "color": "#229ed9",
+          "enabled": true
+        }
+      ]
+    },
+    {
       "id": "work-1794006315056",
       "title": "fast and furious",
       "year": "2001",
