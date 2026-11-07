@@ -12,6 +12,23 @@
   ],
   "movies": [
     {
+      "id": "work-1794073846249",
+      "title": "F1",
+      "year": "2025",
+      "category": "أكشن",
+      "description": "يتم إقناع أسطورة السباقات \"سوني هايز\" بالعودة من التقاعد لقيادة فريق (فورمولا ١) المتعثر - وتوجيه سائق شاب موهوب على أمل تحقيق إنجاز جديد معه - بينما يطارد فرصة أخرى للمجد.",
+      "image": "https://image.tmdb.org/t/p/w500/9PXZIUsSDh4alB80jheWX4fhZmy.jpg",
+      "watchLink": "https://t.me/techno_syria/5027",
+      "downloadLink": "https://t.me/techno_syria/5027",
+      "telegramMessageLink": "https://t.me/techno_syria/5027",
+      "telegramChannelLink": "https://t.me/techno_syria/5027",
+      "viewingNote": "هذا العمل موجود في قناة خاصة ، اتبع التعليمات للمشاهدة .",
+      "viewingInstructions": "الخطوة 1 : اضغط على زر المشاهدة للانتقال الى القناة الخاصة ثم اشترك بالقناة .\n\nالخطوة 2 : من الموقع اضغط زر التحميل للانتقال الى رسالة الفيلم",
+      "customButtons": [],
+      "tmdbId": "movie:911430",
+      "titleAr": "فورمولا 1"
+    },
+    {
       "id": "work-1794072490633",
       "title": "Inpei Shirei",
       "year": "2009",
@@ -69,16 +86,6 @@
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfgPByiEf57Iavuux5i9kIjRd-S_uzhgG7GAKfn2xmjJVha3a4Hm-H9sTr1_0kGXeac97NC9P_5HIqt6O06N0C1dwSWC9Wjmd1oj1vbVhtKw&s=10",
       "watchLink": "https://t.me/techno_syria/5027",
       "downloadLink": "https://t.me/techno_syria/5027"
-    },
-    {
-      "id": "nosferatu-1922",
-      "title": "Nosferatu",
-      "year": "1922",
-      "category": "رعب",
-      "description": "أحد أشهر أفلام الرعب الصامتة في تاريخ السينما.",
-      "image": "https://image.tmdb.org/t/p/w500/lsy3aEsEfYIHdLRk4dontZ4s85h.jpg",
-      "watchLink": "#",
-      "downloadLink": ""
     }
   ]
 }
