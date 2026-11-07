@@ -13,19 +13,20 @@
   "movies": [
     {
       "id": "work-1794072490633",
-      "title": "Inter View",
-      "year": "2011",
-      "category": "أفلام",
-      "description": "",
-      "image": "https://image.tmdb.org/t/p/w500/mb9qiTZ49Be33gxjqSueCq5HlZE.jpg",
-      "watchLink": "",
-      "downloadLink": "",
+      "title": "Inpei Shirei",
+      "year": "2009",
+      "category": "دراما",
+      "description": "يعمل أمانو يوشيهيكو في بنك ميزونامي العملاق. يحظى بثقة الرئيس، وقد تم تكليفه بإخفاء ما قيمته 700 مليون ين من الديون المعدومة. ومن أجل البنك والرئيس، يبذل كل جهده في الاهتمام بالأمر، لكنه يواجه العديد من العقبات، بما في ذلك سياسي طموح وسكرتيرته، ونادي مضيفة تديره عشيقة الرئيس السابق، وحتى زملائه. في هذه الأثناء، بينما يصبح أمانو أكثر تورطًا في المشكلة، تنهار حياته الشخصية.",
+      "image": "https://image.tmdb.org/t/p/w500/7kXZRY9ZlpkEktqmbqQc8wu7M9B.jpg",
+      "watchLink": "https://t.me/techno_syria/5027",
+      "downloadLink": "https://t.me/techno_syria/5027",
       "telegramMessageLink": "",
       "telegramChannelLink": "",
       "viewingNote": "",
       "viewingInstructions": "",
       "customButtons": [],
-      "tmdbId": "movie:529462"
+      "tmdbId": "tv:282149",
+      "titleAr": ""
     },
     {
       "id": "work-1794069737345",
