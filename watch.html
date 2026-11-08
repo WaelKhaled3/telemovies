@@ -4,13 +4,12 @@ const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x)e.t
 const link=u=>{try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:""}catch{return ""}};
 (async()=>{const v=document.getElementById("v"),want=decodeURIComponent(location.hash.slice(1));
 try{const d=await(await fetch("/films.json?v="+Date.now())).json(),used=new Set();let m=null;
-(d.movies||[]).forEach((x,i)=>{let s=slugify(x.title)+(x.year?"-"+slugify(x.year):"")||"work-"+(i+1);if(used.has(s))s+="-"+(i+1);used.add(s);if(s===want)m=x});
+(d.movies||[]).forEach((x,i)=>{let s=slugify(x.slug)||slugify(x.title)+(x.year?"-"+slugify(x.year):"")||"work-"+(i+1);if(used.has(s))s+="-"+(i+1);used.add(s);if(s===want)m=x});
 if(!m){v.replaceChildren(el("h1","","العمل غير موجود"));const a=el("a","","العودة إلى الرئيسية");a.href="/";v.append(a);return}
-const k=/مسلسل|series/i.test(m.category||"")?"مسلسل":"فيلم";document.title=m.title+" | TeleMovies";
-const art=el("article","detail");if(m.image){const im=el("img");im.src=m.image;im.alt="بوستر "+k+" "+m.title;im.width=300;im.height=450;art.append(im)}
-const b=el("div","detail-body");b.append(el("h1","",m.title+(m.year?" ("+m.year+")":"")),el("p","meta",[k,m.category,m.year,m.titleAr].filter(Boolean).join(" · ")));
-if(m.description)b.append(el("p","",m.description));if(m.viewingNote)b.append(el("p","view-note",m.viewingNote));if(m.viewingInstructions)b.append(el("p","instructions",m.viewingInstructions));
+const S=d.site||{},LB=k=>((S.labels||{})[k]||"").trim()||{watch:"مشاهدة عبر تيليغرام",download:"تحميل العمل",message:"رابط الرسالة",channel:"رابط القناة",share:"مشاركة 🔗"}[k],RQ=S.request||{};const k=/مسلسل|series/i.test(m.category||"")?"مسلسل":"فيلم";document.title=m.title+" | TeleMovies";
+const art=el("article","detail"),cl=el("a","close","×");cl.href="/";art.append(cl);if(m.image){const im=el("img");im.src=m.image;im.alt="بوستر "+k+" "+m.title;im.width=300;im.height=450;art.append(im)}
+const b=el("div","detail-body");b.append(el("h1","",m.title),el("p","desc",m.description||m.title),el("p","meta",[m.year,m.category,k,m.titleAr].filter(Boolean).join(" · ")));if(m.viewingNote)b.append(el("p","view-note",m.viewingNote));if(m.viewingInstructions)b.append(el("p","instructions",m.viewingInstructions));
 const bt=el("div","buttons"),add=(l,u,c)=>{u=link(u);if(!u)return;const a=el("a","action-btn",l);a.href=u;a.target="_blank";a.rel="nofollow noopener noreferrer";a.style.background=/^#[0-9a-f]{3,8}$/i.test(c)?c:"#229ed9";bt.append(a)};
-add("مشاهدة",m.watchLink||m.link,"#229ed9");add("تحميل",m.downloadLink,"#168b70");add("رابط الرسالة",m.telegramMessageLink,"#287db5");add("رابط القناة",m.telegramChannelLink,"#536d83");(m.customButtons||[]).filter(x=>x&&x.enabled!==false).forEach(x=>add(x.label,x.url,x.color));
-const sh=el("button","action-btn","مشاركة 🔗");sh.type="button";sh.dataset.share="";bt.append(sh);b.append(bt);art.append(b);v.replaceChildren(art)}catch{v.textContent="تعذّر تحميل البيانات."}})();
+add(LB("watch"),m.watchLink||m.link,"#32b0ee");add(LB("download"),m.downloadLink,"#32b0ee");add(LB("message"),m.telegramMessageLink,"#2b8fc4");add(LB("channel"),m.telegramChannelLink,"#536d83");(m.customButtons||[]).filter(x=>x&&x.enabled!==false).forEach(x=>add(x.label,x.url,x.color));
+const sh=el("button","action-btn",LB("share"));sh.type="button";sh.dataset.share="";bt.append(sh);if(RQ.enabled!==false)add(RQ.text||"🎬 اطلب فيلم",RQ.url||"https://t.me/WaelKhaled3",/^#[0-9a-f]{3,8}$/i.test(RQ.color||"")?RQ.color:"#d97706");b.append(bt);art.append(b);v.replaceChildren(art)}catch{v.textContent="تعذّر تحميل البيانات."}})();
 </script></body></html>
