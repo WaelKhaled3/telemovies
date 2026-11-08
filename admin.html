@@ -18,23 +18,27 @@ label{font-size:13px;color:#d0d9e1}input,textarea,select{width:100%;background:#
 .custom-row{display:grid;grid-template-columns:1fr 2fr 90px 80px 42px;gap:8px;align-items:center;background:#101b27;padding:10px;border:1px solid var(--line);border-radius:10px;margin:8px 0}.custom-row input{padding:8px}.custom-row button{padding:8px}.check{display:flex;align-items:center;gap:7px}.check input{width:auto}
 .preview{width:75px;height:105px;object-fit:cover;border-radius:8px;background:#263442}
 @media(max-width:650px){body{padding:12px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.custom-row{grid-template-columns:1fr 1fr}.custom-row .wide{grid-column:1/-1}.movie{align-items:flex-start}}
-#gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}</style></head>
+.tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.tabs button{background:#2b3a49;flex:1}.tabs button.on{background:var(--blue)}.tabhide{display:none!important}#gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}</style></head>
 <body><div id="gate"><form id="gateForm" class="panel" style="max-width:380px;width:100%"><h2>🔒 لوحة الإدارة</h2><p class="muted" id="gateMsg"></p><input id="gatePw" type="password" autocomplete="current-password" placeholder="كلمة المرور" required><div class="actions"><button type="submit">دخول</button></div><textarea id="gateOut" readonly hidden style="direction:ltr;margin-top:10px"></textarea></form></div>
 <div class="wrap" id="app" hidden>
 <header><div><h1>Tele<span>Movies</span> — لوحة الإدارة</h1><div class="muted">إدارة الأفلام والمسلسلات والأزرار والتصنيفات</div></div><a class="btn" href="./index.html" target="_blank">عرض الموقع</a></header>
-<div class="panel note">التعديلات تُحفظ مؤقتاً داخل اللوحة. عند الانتهاء اضغط «نشر التعديلات على الموقع» في قسم النشر أدناه، وسيُرفع films.json والبوسترات إلى GitHub تلقائياً.</div>
-<section class="panel"><h2>النشر إلى GitHub</h2><div class="grid"><div class="field"><label>اسم الحساب (Owner)</label><input id="ghOwner" dir="ltr"></div><div class="field"><label>اسم المستودع (Repo)</label><input id="ghRepo" dir="ltr"></div><div class="field"><label>الفرع (Branch)</label><input id="ghBranch" dir="ltr"></div><div class="field"><label>GitHub Token</label><input id="ghToken" type="password" dir="ltr" autocomplete="off"></div></div><label class="check" style="margin-top:10px"><input id="ghRemember" type="checkbox"> تذكّر التوكن على هذا الجهاز</label><div class="actions"><button id="publishBtn" class="green" type="button">🚀 نشر التعديلات على الموقع</button></div><p class="muted" id="pubStatus"></p></section>
-<section class="panel"><h2>إعدادات القناة العامة</h2><div class="field"><label>رابط قناة TeleMovies</label><input id="channelUrl" placeholder="https://t.me/tele_moves"></div></section>
-<section class="panel"><div class="bar"><h2>الأقسام والتصنيفات</h2><button id="addCategory">＋ إضافة قسم</button></div><div id="categoryList"></div></section>
-<section class="panel"><div class="bar"><h2>الأعمال الحالية</h2><button id="newBtn">＋ إضافة فيلم / مسلسل</button></div><div id="movieList"></div></section>
-<section class="panel" id="editor" hidden>
+<div class="tabs"><button type="button" data-t="works">🎬 الأعمال</button><button type="button" data-t="site">⚙️ الموقع</button><button type="button" data-t="pub">🚀 النشر والمفاتيح</button></div>
+<div class="panel note" data-tab="pub">التعديلات تُحفظ مؤقتاً داخل اللوحة وتُنشر من هنا. عند الانتهاء اضغط «نشر التعديلات على الموقع» في قسم النشر أدناه، وسيُرفع films.json والبوسترات إلى GitHub تلقائياً.</div>
+<section class="panel" data-tab="pub"><h2>النشر إلى GitHub</h2><div class="grid"><div class="field"><label>اسم الحساب (Owner)</label><input id="ghOwner" dir="ltr"></div><div class="field"><label>اسم المستودع (Repo)</label><input id="ghRepo" dir="ltr"></div><div class="field"><label>الفرع (Branch)</label><input id="ghBranch" dir="ltr"></div><div class="field"><label>GitHub Token</label><input id="ghToken" type="password" dir="ltr" autocomplete="off"></div></div><label class="check" style="margin-top:10px"><input id="ghRemember" type="checkbox"> تذكّر التوكن على هذا الجهاز</label><div class="actions"><button id="publishBtn" class="green" type="button">🚀 نشر التعديلات على الموقع</button></div><p class="muted" id="pubStatus"></p></section>
+<section class="panel" data-tab="pub"><h2>مفتاح TMDB</h2><div class="field"><label>TMDB API Key أو Read Access Token</label><input id="tmdbKey" type="password" dir="ltr" autocomplete="off"></div><label class="check" style="margin-top:10px"><input id="tmdbRemember" type="checkbox" checked> تذكّر المفتاح على هذا الجهاز</label></section>
+<section class="panel" data-tab="site"><h2>إعدادات القناة العامة</h2><div class="field"><label>رابط قناة TeleMovies</label><input id="channelUrl" placeholder="https://t.me/tele_moves"></div></section>
+<section class="panel" data-tab="works"><div class="bar"><h2>الأقسام والتصنيفات</h2><button id="addCategory">＋ إضافة قسم</button></div><div id="categoryList"></div></section>
+<section class="panel" data-tab="works"><div class="bar"><h2>الأعمال الحالية</h2><button id="newBtn">＋ إضافة فيلم / مسلسل</button></div><div id="movieList"></div></section>
+<section class="panel" id="editor" hidden data-tab="works">
 <h2 id="editorTitle">إضافة عمل جديد</h2>
 <form id="movieForm"><input type="hidden" id="movieId"><input type="hidden" id="tmdbId">
-<div class="panel" style="background:#101b27"><h2 style="margin:0 0 10px">🎬 جلب البيانات من TMDB</h2><div class="field"><label>TMDB Read Access Token (أو API Key)</label><input id="tmdbKey" type="password" dir="ltr" autocomplete="off"></div><div class="actions"><input id="tmdbQ" placeholder="اسم الفيلم أو المسلسل بالإنجليزية" style="flex:1"><button type="button" id="tmdbBtn">بحث</button></div><div id="tmdbRes"></div><p class="muted" id="tmdbMsg"></p></div>
+<div class="panel" style="background:#101b27"><h2 style="margin:0 0 10px">🎬 جلب البيانات من TMDB</h2><div class="actions"><input id="tmdbQ" placeholder="اسم الفيلم أو المسلسل بالإنجليزية" style="flex:1"><button type="button" id="tmdbBtn">بحث</button></div><div id="tmdbRes"></div><p class="muted" id="tmdbMsg"></p></div>
 <div class="grid">
 <div class="field"><label>اسم الفيلم أو المسلسل *</label><input id="title" required></div>
 <div class="field"><label>سنة الإصدار</label><input id="year" inputmode="numeric"></div>
 <div class="field"><label>الاسم العربي (للبحث فقط، اختياري)</label><input id="titleAr"></div>
+<div class="field"><label>رابط الصفحة المخصص (اختياري، بالإنجليزية)</label><input id="slug" dir="ltr" placeholder="fast-and-furious"></div>
+<div class="field"><label>عنوان الصفحة في جوجل (اختياري)</label><input id="seoTitle"></div>
 <div class="field"><label>القسم</label><select id="category"></select></div>
 <div class="field"><label>رابط صورة البوستر</label><input id="imageUrl" placeholder="https://..."></div>
 <div class="field"><label>رفع صورة من الجهاز</label><input id="imageFile" type="file" accept="image/*"></div>
@@ -50,7 +54,8 @@ label{font-size:13px;color:#d0d9e1}input,textarea,select{width:100%;background:#
 <div class="panel" style="background:#101b27;margin-top:16px"><div class="bar"><h2 style="margin:0">أزرار إضافية مخصصة</h2><button type="button" id="addCustom">＋ إضافة زر</button></div><p class="muted">اكتب اسم الزر والرابط واختر لونه. مثال: رابط الجزء الثاني، قناة الترجمة، مشاهدة الإعلان.</p><div id="customButtons"></div></div>
 <div class="actions"><button type="submit">حفظ العمل</button><button type="button" class="secondary" id="cancelBtn">إلغاء</button></div>
 </form></section>
-<section class="panel"><h2>استيراد وتصدير البيانات</h2><p class="muted">نزّل الملف بعد التعديل وارفعه إلى GitHub باسم films.json مع استبدال الملف القديم.</p><div class="actions"><button id="exportBtn">تنزيل ملف films.json</button><label class="btn secondary" for="importFile">استيراد ملف JSON</label><input id="importFile" type="file" accept=".json,application/json" hidden></div></section>
+<div id="siteForm" data-tab="site"></div>
+<section class="panel" data-tab="pub"><h2>استيراد وتصدير البيانات</h2><p class="muted">نزّل الملف بعد التعديل وارفعه إلى GitHub باسم films.json مع استبدال الملف القديم.</p><div class="actions"><button id="exportBtn">تنزيل ملف films.json</button><label class="btn secondary" for="importFile">استيراد ملف JSON</label><input id="importFile" type="file" accept=".json,application/json" hidden></div></section>
 </div>
 <script>
 const starter={channelUrl:"https://t.me/tele_moves",categories:["أفلام","أكشن","دراما","مغامرة","كوميدي","رعب","خيال علمي","مسلسلات سورية"],movies:[]};
@@ -64,26 +69,88 @@ function addCustomRow(item={label:"",url:"",color:"#229ed9"}){const root=$("cust
 function getCustom(){return [...$("customButtons").children].map(r=>({label:r.querySelector(".cb-label").value.trim(),url:safeUrl(r.querySelector(".cb-url").value.trim()),color:r.querySelector(".cb-color").value,enabled:r.querySelector(".cb-enabled").checked})).filter(b=>b.label&&b.url);}
 function resetForm(){$("movieForm").reset();$("tmdbId").value="";$("tmdbRes").replaceChildren();$("tmdbMsg").textContent="";$("movieId").value="";currentImage="";$("preview").src="";$("customButtons").replaceChildren();$("editorTitle").textContent="إضافة عمل جديد";renderCategories();}
 function openEditor(){$("editor").hidden=false;$("editor").scrollIntoView({behavior:"smooth"});}
-function editMovie(i){const m=data.movies[i];$("movieId").value=m.id;$("tmdbId").value=m.tmdbId||"";$("titleAr").value=m.titleAr||"";$("title").value=m.title||"";$("year").value=m.year||"";$("category").value=m.category||data.categories[0]||"";$("description").value=m.description||"";$("watchLink").value=m.watchLink||m.link||"";$("downloadLink").value=m.downloadLink||"";$("telegramMessageLink").value=m.telegramMessageLink||"";$("telegramChannelLink").value=m.telegramChannelLink||"";$("viewingNote").value=m.viewingNote||"";$("viewingInstructions").value=m.viewingInstructions||"";currentImage=m.image||"";$("imageUrl").value=currentImage.startsWith("data:")?"":currentImage;$("preview").src=currentImage;$("customButtons").replaceChildren();(m.customButtons||[]).forEach(addCustomRow);$("editorTitle").textContent="تعديل العمل";openEditor();}
+function editMovie(i){const m=data.movies[i];$("movieId").value=m.id;$("tmdbId").value=m.tmdbId||"";$("titleAr").value=m.titleAr||"";$("slug").value=m.slug||"";$("seoTitle").value=m.seoTitle||"";$("title").value=m.title||"";$("year").value=m.year||"";$("category").value=m.category||data.categories[0]||"";$("description").value=m.description||"";$("watchLink").value=m.watchLink||m.link||"";$("downloadLink").value=m.downloadLink||"";$("telegramMessageLink").value=m.telegramMessageLink||"";$("telegramChannelLink").value=m.telegramChannelLink||"";$("viewingNote").value=m.viewingNote||"";$("viewingInstructions").value=m.viewingInstructions||"";currentImage=m.image||"";$("imageUrl").value=currentImage.startsWith("data:")?"":currentImage;$("preview").src=currentImage;$("customButtons").replaceChildren();(m.customButtons||[]).forEach(addCustomRow);$("editorTitle").textContent="تعديل العمل";openEditor();}
 $("addCategory").onclick=()=>{const c=prompt("اسم القسم الجديد؟");if(!c||!c.trim())return;if(data.categories.includes(c.trim()))return alert("القسم موجود.");data.categories.push(c.trim());renderCategories();};
 $("newBtn").onclick=()=>{resetForm();openEditor()};$("cancelBtn").onclick=()=>{$("editor").hidden=true;resetForm()};$("addCustom").onclick=()=>addCustomRow();
 $("imageUrl").oninput=()=>{currentImage=val("imageUrl");$("preview").src=currentImage};
 $("imageFile").onchange=e=>{const f=e.target.files[0];if(!f)return;if(f.size>3*1024*1024){alert("اختر صورة أقل من 3MB.");e.target.value="";return;}const rd=new FileReader();rd.onload=()=>{currentImage=rd.result;$("preview").src=currentImage;$("imageUrl").value=""};rd.readAsDataURL(f)};
-$("movieForm").onsubmit=e=>{e.preventDefault();const id=val("movieId")||"work-"+Date.now();const item={id,title:val("title"),year:val("year"),category:$("category").value,description:val("description"),image:currentImage||val("imageUrl"),watchLink:safeUrl(val("watchLink")),downloadLink:safeUrl(val("downloadLink")),telegramMessageLink:safeUrl(val("telegramMessageLink")),telegramChannelLink:safeUrl(val("telegramChannelLink")),viewingNote:val("viewingNote"),viewingInstructions:val("viewingInstructions"),customButtons:getCustom(),tmdbId:val("tmdbId"),titleAr:val("titleAr")};const i=data.movies.findIndex(x=>x.id===id);if(i>=0)data.movies[i]=item;else data.movies.unshift(item);renderMovies();$("editor").hidden=true;resetForm();};
+$("movieForm").onsubmit=e=>{e.preventDefault();const id=val("movieId")||"work-"+Date.now();const item={id,title:val("title"),year:val("year"),category:$("category").value,description:val("description"),image:currentImage||val("imageUrl"),watchLink:safeUrl(val("watchLink")),downloadLink:safeUrl(val("downloadLink")),telegramMessageLink:safeUrl(val("telegramMessageLink")),telegramChannelLink:safeUrl(val("telegramChannelLink")),viewingNote:val("viewingNote"),viewingInstructions:val("viewingInstructions"),customButtons:getCustom(),tmdbId:val("tmdbId"),titleAr:val("titleAr"),slug:val("slug"),seoTitle:val("seoTitle")};const i=data.movies.findIndex(x=>x.id===id);if(i>=0)data.movies[i]=item;else data.movies.unshift(item);renderMovies();$("editor").hidden=true;resetForm();};
 $("exportBtn").onclick=()=>{data.channelUrl=val("channelUrl")||starter.channelUrl;const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json;charset=utf-8"});const a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download="films.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
-$("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.movies))throw Error();data={channelUrl:d.channelUrl||starter.channelUrl,categories:Array.isArray(d.categories)?d.categories:starter.categories,movies:d.movies};$("channelUrl").value=data.channelUrl;renderCategories();renderMovies();alert("تم استيراد الملف بنجاح.");}catch{alert("ملف JSON غير صالح.");}e.target.value=""};
-async function load(){try{const r=await fetch("./films.json?v="+Date.now(),{cache:"no-store"});if(r.ok){const d=await r.json();data={channelUrl:d.channelUrl||starter.channelUrl,categories:Array.isArray(d.categories)?d.categories:starter.categories,movies:Array.isArray(d.movies)?d.movies:[]};}}catch{}data.movies.forEach((m,i)=>{if(!m.id)m.id="work-"+Date.now()+"-"+i});$("channelUrl").value=data.channelUrl;renderCategories();renderMovies()}
+$("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.movies))throw Error();data={channelUrl:d.channelUrl||starter.channelUrl,categories:Array.isArray(d.categories)?d.categories:starter.categories,movies:d.movies,site:d.site||{}};$("channelUrl").value=data.channelUrl;renderCategories();renderMovies();renderSite();alert("تم استيراد الملف بنجاح.");}catch{alert("ملف JSON غير صالح.");}e.target.value=""};
+async function load(){try{const r=await fetch("./films.json?v="+Date.now(),{cache:"no-store"});if(r.ok){const d=await r.json();data={channelUrl:d.channelUrl||starter.channelUrl,categories:Array.isArray(d.categories)?d.categories:starter.categories,movies:Array.isArray(d.movies)?d.movies:[],site:d.site||{}};}}catch{}data.site=data.site||{};data.movies.forEach((m,i)=>{if(!m.id)m.id="work-"+Date.now()+"-"+i});$("channelUrl").value=data.channelUrl;renderCategories();renderMovies();renderSite()}
+function tab(n){document.querySelectorAll("[data-tab]").forEach(e=>e.classList.toggle("tabhide",e.dataset.tab!==n));document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===n));sessionStorage.tm_tab=n}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>tab(b.dataset.t));
+function saveTmdb(){if($("tmdbRemember").checked){localStorage.tm_tmdb=val("tmdbKey");localStorage.removeItem("tm_tmdb_off")}else{localStorage.removeItem("tm_tmdb");localStorage.tm_tmdb_off="1"}}
+$("tmdbKey").oninput=saveTmdb;$("tmdbRemember").onchange=saveTmdb;
+const DEFS={heroTag:"عالمك السينمائي يبدأ هنا",heroTitle:"دليل الأفلام والمسلسلات\nالمتوفرة على تيليغرام",heroSub:"تصفّح المكتبة، تعرّف على تفاصيل العمل، واختر طريقة المشاهدة المناسبة.",about:"TeleMovies دليل عربي يجمع الأفلام والمسلسلات المتوفرة على تيليغرام في مكان واحد، مع وصف كل عمل وروابط الوصول إليه. الموقع لا يستضيف أي ملفات.",labels:{watch:"مشاهدة عبر تيليغرام",download:"تحميل العمل",message:"رابط الرسالة",channel:"رابط القناة",share:"مشاركة 🔗"},request:{enabled:true,text:"🎬 اطلب فيلم",url:"https://t.me/WaelKhaled3",color:"#d97706"},
+pages:{contact:`# اتصل بنا
+
+للتواصل معنا عبر تيليغرام: https://t.me/WaelKhaled3
+
+## يمكنك مراسلتنا من أجل
+
+- اقتراح فيلم أو مسلسل لإضافته.
+- الإبلاغ عن رابط لا يعمل أو معلومات غير صحيحة.
+- طلبات إزالة المحتوى (راجع صفحة DMCA).
+- الاستفسارات والتعاون.
+
+نرد على الرسائل بأسرع وقت ممكن.`,
+privacy:`# سياسة الخصوصية
+
+## ما الذي نجمعه؟
+
+لا يتطلب الموقع تسجيلاً ولا نطلب منك أي بيانات شخصية. نخزّن في متصفحك فقط إعدادات بسيطة (مثل إخفاء نافذة الترحيب).
+
+## خدمات خارجية
+
+- استضافة الموقع عبر Cloudflare، وقد تسجّل بيانات تقنية (مثل عنوان IP) لأغراض الأمان والأداء.
+- خطوط Google Fonts وصور البوسترات من خوادم TMDB.
+- عند فتح رابط تيليغرام تنتقل إلى تيليغرام وتسري عليك سياسته.
+- قد تعرض الإعلانات جهات خارجية (مثل Google AdSense) تستخدم ملفات تعريف الارتباط وفق سياساتها.
+
+## التواصل
+
+لأي استفسار عن الخصوصية: https://t.me/WaelKhaled3`,
+dmca:`# حقوق النشر وطلبات الإزالة (DMCA)
+
+TeleMovies دليل معلومات وروابط فقط. لا يستضيف الموقع ولا يرفع أي أفلام أو مسلسلات أو ملفات فيديو، والروابط تشير إلى محتوى منشور على تيليغرام من أطراف خارجية.
+
+## تقديم طلب إزالة
+
+إذا كنت صاحب حق أو ممثلاً عنه وترى أن رابطاً في موقعنا ينتهك حقوقك، فراسلنا عبر تيليغرام: https://t.me/WaelKhaled3 وأرفق:
+
+- اسمك وصفتك (صاحب الحق أو ممثله).
+- رابط الصفحة المطلوب إزالتها.
+- وصف العمل المحمي وما يثبت ملكيتك له.
+- إقراراً بأن المعلومات صحيحة وأنك مخوّل بتقديم الطلب.
+- وسيلة للتواصل معك.
+
+سنراجع الطلب ونزيل الرابط المعني بأسرع وقت ممكن. ولإزالة المحتوى من تيليغرام نفسه راسل dmca@telegram.org.`}};
+const SF=[["الصفحة الرئيسية",[["heroTag","الجملة الصغيرة فوق العنوان"],["heroTitle","العنوان الرئيسي (سطر جديد = سطر)","ta"],["heroSub","النص تحت العنوان","ta"],["heroImage","رابط صورة اختيارية أعلى الصفحة"],["homeButtons","أزرار الصفحة الرئيسية — كل سطر: النص | الرابط | اللون (اختياري)","lines:label,url,color"],["about","النبذة أسفل الموقع","ta"]]],
+["القائمة الجانبية",[["menu","روابط إضافية — كل سطر: النص | الرابط","lines:label,url"]]],
+["أزرار الأعمال وزر «اطلب فيلم»",[["labels.watch","نص زر المشاهدة"],["labels.download","نص زر التحميل"],["labels.message","نص زر رابط الرسالة"],["labels.channel","نص زر رابط القناة"],["labels.share","نص زر المشاركة"],["request.enabled","إظهار زر «اطلب فيلم»","chk"],["request.text","نص زر الطلب"],["request.url","رابط زر الطلب"],["request.color","لون زر الطلب","color"]]],
+["الإعلانات (AdSense أو أي كود)",[["ads.top","إعلان أعلى الصفحة","ta"],["ads.between","إعلان بين الأعمال","ta"],["ads.every","يظهر كل كم عمل (رقم، الافتراضي 8)"],["ads.bottom","إعلان أسفل الصفحة","ta"]]],
+["صفحات الموقع (# عنوان، ## عنوان فرعي، - نقطة، سطر فارغ بين الفقرات)",[["pages.privacy","صفحة الخصوصية","ta"],["pages.contact","صفحة اتصل بنا","ta"],["pages.dmca","صفحة DMCA","ta"]]],
+["متقدم",[["head","كود يُضاف داخل head (تحقق جوجل، Analytics...)","ta"]]]];
+const gp=(o,p)=>p.split(".").reduce((a,k)=>a==null?a:a[k],o);
+const sp=(o,p,v)=>{const k=p.split("."),l=k.pop();k.forEach(x=>o=o[x]=o[x]||{});o[l]=v};
+const LN=(a,k)=>(a||[]).map(o=>k.map(x=>o[x]||"").join(" | ")).join("\n");
+const PL=(s,k)=>s.split("\n").map(l=>l.split("|").map(x=>x.trim())).filter(a=>a[0]&&a[1]).map(a=>Object.fromEntries(k.map((x,i)=>[x,a[i]||""])));
+function renderSite(){const root=$("siteForm");root.replaceChildren();data.site=data.site||{};SF.forEach(([title,fl])=>{const box=document.createElement("section");box.className="panel";const h=document.createElement("h2");h.textContent=title;box.append(h);fl.forEach(([p,lab,ty])=>{ty=ty||"";const f=document.createElement("div");f.className="field";f.style.marginTop="10px";const l=document.createElement("label");let cur=gp(data.site,p);if(cur==null)cur=gp(DEFS,p);let i;const ln=ty.startsWith("lines"),keys=ln?ty.split(":")[1].split(","):[];
+if(ty==="chk"){l.className="check";i=document.createElement("input");i.type="checkbox";i.checked=cur!==false;i.onchange=()=>sp(data.site,p,i.checked);l.append(i,document.createTextNode(" "+lab));f.append(l)}
+else{l.textContent=lab;if(ty==="ta"||ln){i=document.createElement("textarea");i.value=ln?LN(cur,keys):(cur||"")}else{i=document.createElement("input");i.type=ty==="color"?"color":"text";i.value=cur||(ty==="color"?"#d97706":"")}
+i.oninput=()=>sp(data.site,p,ln?PL(i.value,keys):i.value);f.append(l,i)}box.append(f)});root.append(box)})}
 const GENRE={28:"أكشن",10759:"أكشن",18:"دراما",35:"كوميدي",27:"رعب",12:"مغامرة",878:"خيال علمي",10765:"خيال علمي"};
 async function tm(path,lang,q=""){const k=val("tmdbKey"),jwt=k.length>=60;const r=await fetch(`https://api.themoviedb.org/3/${path}?language=${lang}${q}`+(jwt?"":"&api_key="+encodeURIComponent(k)),{headers:jwt?{Authorization:"Bearer "+k}:{}});if(!r.ok)throw Error("TMDB "+r.status+(r.status===401?" — المفتاح غير صحيح":""));return r.json()}
-$("tmdbBtn").onclick=async()=>{const q=val("tmdbQ"),box=$("tmdbRes"),msg=$("tmdbMsg");if(!q||!val("tmdbKey"))return alert("اكتب مفتاح TMDB واسم العمل.");localStorage.tm_tmdb=val("tmdbKey");box.replaceChildren();msg.textContent="جارٍ البحث…";try{const d=await tm("search/multi","en-US","&include_adult=false&query="+encodeURIComponent(q));const list=d.results.filter(x=>x.media_type==="movie"||x.media_type==="tv").slice(0,8);msg.textContent=list.length?"اختر العمل الصحيح:":"لا توجد نتائج.";list.forEach(x=>{const row=document.createElement("div");row.className="movie";const im=document.createElement("img");im.src=x.poster_path?"https://image.tmdb.org/t/p/w92"+x.poster_path:"";const info=document.createElement("div");info.className="info";const n=document.createElement("strong");n.textContent=x.title||x.name;const s=document.createElement("small");s.textContent=[x.media_type==="tv"?"مسلسل":"فيلم",(x.release_date||x.first_air_date||"").slice(0,4)].filter(Boolean).join(" · ");info.append(n,s);const b=document.createElement("button");b.type="button";b.textContent="استخدام";b.onclick=()=>pick(x);row.append(im,info,b);box.append(row)})}catch(e){msg.textContent="❌ "+e.message}};
+$("tmdbBtn").onclick=async()=>{const q=val("tmdbQ"),box=$("tmdbRes"),msg=$("tmdbMsg");if(!q||!val("tmdbKey"))return alert("اكتب اسم العمل، وضع مفتاح TMDB في قسم «النشر والمفاتيح» أولاً.");box.replaceChildren();msg.textContent="جارٍ البحث…";try{const d=await tm("search/multi","en-US","&include_adult=false&query="+encodeURIComponent(q));const list=d.results.filter(x=>x.media_type==="movie"||x.media_type==="tv").slice(0,8);msg.textContent=list.length?"اختر العمل الصحيح:":"لا توجد نتائج.";list.forEach(x=>{const row=document.createElement("div");row.className="movie";const im=document.createElement("img");im.src=x.poster_path?"https://image.tmdb.org/t/p/w92"+x.poster_path:"";const info=document.createElement("div");info.className="info";const n=document.createElement("strong");n.textContent=x.title||x.name;const s=document.createElement("small");s.textContent=[x.media_type==="tv"?"مسلسل":"فيلم",(x.release_date||x.first_air_date||"").slice(0,4)].filter(Boolean).join(" · ");info.append(n,s);const b=document.createElement("button");b.type="button";b.textContent="استخدام";b.onclick=()=>pick(x);row.append(im,info,b);box.append(row)})}catch(e){msg.textContent="❌ "+e.message}};
 async function toAr(t){if(!t)return"";try{const r=await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q="+encodeURIComponent(t));if(r.ok){const j=await r.json(),s=j[0].map(z=>z[0]).join("");if(s)return s}}catch{}try{const parts=t.match(/[^.!?]+[.!?]*\s*/g)||[t],ch=[];let c="";parts.forEach(p=>{if((c+p).length>450){ch.push(c);c=p}else c+=p});if(c)ch.push(c);let out="";for(const q of ch){const r=await fetch("https://api.mymemory.translated.net/get?langpair=en|ar&q="+encodeURIComponent(q)),j=await r.json(),s=j.responseData&&j.responseData.translatedText;if(!r.ok||!s||/MYMEMORY WARNING/i.test(s))return"";out+=s+" "}return out.trim()}catch{return""}}
 async function pick(x){const msg=$("tmdbMsg");msg.textContent="جارٍ جلب التفاصيل…";try{const base=`${x.media_type}/${x.id}`,[en,tr]=await Promise.all([tm(base,"en-US"),tm(base+"/translations","en-US")]),ar=(tr.translations||[]).filter(z=>z.iso_639_1==="ar"),gv=f=>((ar.find(z=>z.data&&z.data[f])||{}).data||{})[f]||"";let ov=gv("overview"),how="من TMDB";if(!ov&&en.overview){msg.textContent="لا يوجد وصف عربي في TMDB — جارٍ الترجمة الآلية…";ov=await toAr(en.overview);how="ترجمة آلية، راجعه"}
 const nm=en.title||en.name||"",ta=gv("title")||gv("name");$("title").value=nm;$("titleAr").value=ta&&ta!==nm?ta:"";$("year").value=(en.release_date||en.first_air_date||"").slice(0,4);$("description").value=ov;if(en.poster_path){currentImage="https://image.tmdb.org/t/p/w500"+en.poster_path;$("imageUrl").value=currentImage;$("preview").src=currentImage}const g=(en.genres||[]).map(z=>GENRE[z.id]).find(c=>data.categories.includes(c));if(g)$("category").value=g;$("tmdbId").value=x.media_type+":"+x.id;$("tmdbRes").replaceChildren();msg.textContent=ov?`✅ تم الجلب (الاسم إنجليزي، الوصف عربي — ${how}). ثم احفظ العمل.`:"⚠️ تعذّر الحصول على وصف عربي — اكتبه يدوياً."}catch(e){msg.textContent="❌ "+e.message}}
 const ADMIN_SALT="telemovies-admin-v1";
 const ADMIN_HASH="5abd9177348c47051e79677ffb0fa5f2a800aa55385b3a034ab66dc2447185be";
 async function pwHash(p){const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(p),"PBKDF2",false,["deriveBits"]);const b=await crypto.subtle.deriveBits({name:"PBKDF2",salt:new TextEncoder().encode(ADMIN_SALT),iterations:300000,hash:"SHA-256"},k,256);return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
-function initGh(){$("tmdbKey").value=localStorage.tm_tmdb||"";const g=JSON.parse(localStorage.tm_gh||"{}");$("ghOwner").value=g.owner||"";$("ghRepo").value=g.repo||"";$("ghBranch").value=g.branch||"main";$("ghToken").value=sessionStorage.tm_tok||localStorage.tm_tok||"";$("ghRemember").checked=!!localStorage.tm_tok}
-function unlock(){$("gate").style.display="none";$("app").hidden=false;sessionStorage.tm_ok="1";initGh();load()}
+function initGh(){$("tmdbKey").value=localStorage.tm_tmdb||"";$("tmdbRemember").checked=localStorage.tm_tmdb_off!=="1";const g=JSON.parse(localStorage.tm_gh||"{}");$("ghOwner").value=g.owner||"";$("ghRepo").value=g.repo||"";$("ghBranch").value=g.branch||"main";$("ghToken").value=sessionStorage.tm_tok||localStorage.tm_tok||"";$("ghRemember").checked=!!localStorage.tm_tok}
+function unlock(){$("gate").style.display="none";$("app").hidden=false;sessionStorage.tm_ok="1";initGh();load();tab(sessionStorage.tm_tab||"works")}
 $("gateMsg").textContent=ADMIN_HASH?"أدخل كلمة مرور لوحة التحكم.":"أول مرة: اختر كلمة مرور قوية (12 حرفاً فأكثر) وسيظهر لك سطر تنسخه إلى هذا الملف.";
 $("gateForm").onsubmit=async e=>{e.preventDefault();const h=await pwHash($("gatePw").value);if(!ADMIN_HASH){$("gateOut").hidden=false;$("gateOut").value='const ADMIN_HASH="'+h+'";';$("gateMsg").textContent="انسخ السطر أدناه واستبدل به سطر const ADMIN_HASH=\"\"; في ملف admin.html على GitHub ثم احفظ (Commit).";return}if(h===ADMIN_HASH)unlock();else{$("gateMsg").textContent="كلمة المرور غير صحيحة.";$("gatePw").value=""}};
 if(ADMIN_HASH&&sessionStorage.tm_ok==="1")unlock();
