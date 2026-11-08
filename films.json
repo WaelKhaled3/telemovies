@@ -87,5 +87,19 @@
       "watchLink": "https://t.me/techno_syria/5027",
       "downloadLink": "https://t.me/techno_syria/5027"
     }
-  ]
+  ],
+  "site": {
+    "menu": [
+      {
+        "label": "تكنو سوريا",
+        "url": "https://t.me/techno_syria"
+      }
+    ],
+    "labels": {
+      "download": "تحميل "
+    },
+    "request": {
+      "text": " اطلب فيلم"
+    }
+  }
 }
