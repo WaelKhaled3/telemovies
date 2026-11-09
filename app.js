@@ -6,5 +6,7 @@ if(ib){if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!navigator.standalone)i
 ib.onclick=()=>{if(dp){dp.prompt();dp=null;ib.hidden=true}else alert("في آيفون: اضغط زر المشاركة في المتصفح ثم «إضافة إلى الشاشة الرئيسية».")}}
 document.addEventListener("click",async e=>{const b=e.target.closest("[data-share]");if(!b)return;const d={title:document.title,url:location.href};
 if(navigator.share){try{await navigator.share(d)}catch{}}else{try{await navigator.clipboard.writeText(d.url);b.textContent="✓ تم نسخ الرابط"}catch{prompt("انسخ الرابط:",d.url)}}});
-document.addEventListener("click",e=>{if(e.target.closest("[data-menu]")){const d=document.getElementById("drawer");if(d)d.hidden=!d.hidden}});
+const setMenu=o=>{const d=document.getElementById("drawer");if(!d)return;d.classList.toggle("open",o);d.setAttribute("aria-hidden",String(!o));document.body.style.overflow=o?"hidden":""};
+document.addEventListener("click",e=>{if(e.target.closest("[data-menu]")){const d=document.getElementById("drawer");setMenu(!(d&&d.classList.contains("open")));return}if(e.target.closest("#drawer a"))setMenu(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")setMenu(false)});
 })();
