@@ -9,4 +9,5 @@ if(navigator.share){try{await navigator.share(d)}catch{}}else{try{await navigato
 const setMenu=o=>{const d=document.getElementById("drawer");if(!d)return;d.classList.toggle("open",o);d.setAttribute("aria-hidden",String(!o));document.body.style.overflow=o?"hidden":""};
 document.addEventListener("click",e=>{if(e.target.closest("[data-menu]")){const d=document.getElementById("drawer");setMenu(!(d&&d.classList.contains("open")));return}if(e.target.closest("#drawer a"))setMenu(false)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")setMenu(false)});
+document.addEventListener("click",async e=>{const r=e.target.closest("[data-report]");if(!r)return;try{await navigator.clipboard.writeText(r.dataset.report);const t=document.createElement("div");t.className="toast";t.textContent=r.dataset.copied||"";document.body.append(t);setTimeout(()=>t.remove(),4200)}catch{}});
 })();
