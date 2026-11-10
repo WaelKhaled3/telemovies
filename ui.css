@@ -66,3 +66,10 @@ footer .legal{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 18px}fo
 @keyframes slfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .slider.single .sl-nav,.slider.single .sl-dots{display:none}
 @media(max-width:700px){.sl-track{height:540px}.sl-item{flex-direction:column;justify-content:center;text-align:center;padding:22px 18px;gap:16px}.sl-poster{height:auto;width:44%;max-height:none;transform:none}.sl-txt{max-width:none}}
+
+.pl-ov{position:fixed;inset:0;z-index:3000;background:#02060cec;backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;animation:tin2 .25s ease}
+@keyframes tin2{from{opacity:0}}
+.pl-box{position:relative;width:min(980px,100%)}
+.pl-frame{aspect-ratio:16/9;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px #000;display:grid;place-items:center;color:#fff;text-align:center;padding:10px}
+.pl-frame iframe,.pl-frame video{width:100%;height:100%;border:0;background:#000}
+.pl-x{position:absolute;top:-46px;inset-inline-start:0;width:38px;height:38px;border-radius:11px;background:#ffffff14;border:1px solid #ffffff2a;color:#fff;font-size:24px;line-height:1;cursor:pointer}
