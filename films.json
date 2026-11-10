@@ -369,10 +369,10 @@
       "hideRequest": false,
       "hideReport": false,
       "featured": false,
-      "noticeOn": false,
+      "noticeOn": true,
       "noticeType": "warn",
       "noticeText": "",
-      "noticeHide": false
+      "noticeHide": true
     }
   ],
   "site": {
