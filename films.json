@@ -53,19 +53,13 @@
         "servers": [
           {
             "name": "سيرفر 1",
-            "url": "https://uqload.vc/z86vbv4xabcb.html",
+            "url": "https://www.vidspeed.org/embed-imbt60ku5mr1.html",
             "type": "auto",
             "enabled": true
           }
         ],
         "display": {},
-        "downloads": [
-          {
-            "quality": "480p",
-            "url": "https://uqload.vc/z86vbv4xabcb.html",
-            "enabled": true
-          }
-        ],
+        "downloads": [],
         "buttonLabel": "شاهد الآن"
       }
     },
