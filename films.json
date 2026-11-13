@@ -29,6 +29,8 @@
       "titleAr": "",
       "slug": "",
       "seoTitle": "",
+      "seoDescription": "",
+      "mediaType": "movie",
       "hideShare": false,
       "hideRequest": false,
       "hideReport": false,
@@ -42,7 +44,30 @@
         "كوميدي"
       ],
       "draft": false,
-      "trailer": "https://www.youtube.com/watch?v=xSG5UX0EQVg"
+      "viewing": {
+        "enabled": true,
+        "showButton": true,
+        "type": "movie",
+        "parts": [],
+        "seasons": [],
+        "servers": [
+          {
+            "name": "سيرفر 1",
+            "url": "https://uqload.vc/z86vbv4xabcb.html",
+            "type": "auto",
+            "enabled": true
+          }
+        ],
+        "display": {},
+        "downloads": [
+          {
+            "quality": "480p",
+            "url": "https://uqload.vc/z86vbv4xabcb.html",
+            "enabled": true
+          }
+        ],
+        "buttonLabel": "شاهد الآن"
+      }
     },
     {
       "id": "work-1794467686139",
@@ -558,6 +583,7 @@
     "pages": {
       "privacy": "# سياسة الخصوصية\n\n## ما الذي نجمعه؟\n\nلا يتطلب الموقع تسجيلاً ولا نطلب منك أي بيانات شخصية.\n\n## ملفات السجل (Log Files)\n\n- تاريخ ووقت الزيارة.\nالصفحات التي تم الدخول إليها والخروج منها.\n- عند فتح رابط تيليغرام تنتقل إلى تيليغرام وتسري عليك سياسته.\n- هذه البيانات تقنية بحتة ولا ترتبط بأي معلومات تحدد هويتك الشخصية.\n\n## التواصل\n\nلأي استفسار عن الخصوصية: https://t.me/WaelKhaled3",
       "contact": "# اتصل بنا\n\nللتواصل معنا عبر تيليغرام: https://t.me/WaelKhaled3\n\n## يمكنك مراسلتنا من أجل\n\n- الإبلاغ عن رابط لا يعمل أو معلومات غير صحيحة.\n- طلبات إزالة المحتوى (راجع صفحة DMCA).\n- الاستفسارات والتعاون.\n\nنرد على الرسائل بأسرع وقت ممكن."
-    }
+    },
+    "colors": {}
   }
 }
