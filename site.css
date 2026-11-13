@@ -1,4 +1,3 @@
-@import url(/ui.css);
 :root{--bg:#0b121b;--panel:#121c28;--line:#ffffff14;--blue:#2aa7e3;--text:#f2f6fa;--muted:#9fb0bf}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Cairo,system-ui,sans-serif;line-height:1.8;min-height:100vh}
@@ -56,3 +55,7 @@ footer{border-top:1px solid var(--line);padding:30px 16px;text-align:center;colo
 .n-warn{--nc:#f59e0b}.n-info{--nc:#2aa7e3}.n-error{--nc:#ef4444}
 @keyframes npulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--nc) 45%,transparent)}50%{box-shadow:0 0 0 9px transparent}}
 @media(min-width:900px){.help-row{grid-template-columns:1fr 1fr}}
+
+
+.hc-watch{--hb:#d9770644;--hg:#d977061a;--ht:#f3dcc0}
+.watch-card .btn-a{width:100%}
