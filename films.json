@@ -53,13 +53,19 @@
         "servers": [
           {
             "name": "سيرفر 1",
-            "url": "https://www.vidspeed.org/embed-imbt60ku5mr1.html",
+            "url": "https://1vid.xyz/embed-72cwwj94fg6f.html",
             "type": "auto",
             "enabled": true
           }
         ],
         "display": {},
-        "downloads": [],
+        "downloads": [
+          {
+            "quality": "480p",
+            "url": "https://vsped-fs11-u3z.cdnz.quest/v/01/00193/imbt60ku5mr1_n/dCw.mp4?t=blWitvaejOTq7QBffPD27Q95iDPzIWo51qLc_PkSZoQ&s=1794571555&e=43200&v=566055&sp=10240&i=0.0",
+            "enabled": true
+          }
+        ],
         "buttonLabel": "شاهد الآن"
       }
     },
