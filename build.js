@@ -10,7 +10,7 @@ const link=v=>{try{const u=new URL(v);return /^https?:$/.test(u.protocol)?u.href
 const ml=u=>String(u||"")[0]==="/"?u:link(u);
 const write=(p,s)=>{fs.mkdirSync(pt.dirname(p),{recursive:true});fs.writeFileSync(p,s)};
 const HEX=/^#[0-9a-f]{3,8}$/i,clean=s=>String(s||"").replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,"").trim();
-const D={heroTag:"عالمك السينمائي يبدأ هنا",heroTitle:"دليل الأفلام والمسلسلات\nالمتوفرة على تيليغرام",heroSub:"تصفّح المكتبة، تعرّف على تفاصيل العمل، واختر طريقة المشاهدة المناسبة.",about:"TeleMovies دليل عربي يجمع الأفلام والمسلسلات المتوفرة على تيليغرام في مكان واحد، مع وصف كل عمل وروابط الوصول إليه. الموقع لا يستضيف أي ملفات.",labels:{watch:"مشاهدة عبر تيليغرام",download:"تحميل العمل",message:"رابط الرسالة",channel:"رابط القناة",share:"مشاركة"},request:{text:"اطلب فيلم",url:"https://t.me/WaelKhaled3",color:"#d97706",hint:"لم تجد ما تبحث عنه؟ اطلب العمل وسنحاول إضافته."},colors:{watch:"#2aa7e3",download:"#1f9d8b",message:"#3b82c4",channel:"#5b7288",share:"#2b3a4c",watchNow:"#7c3aed"}};
+const D={heroTag:"عالمك السينمائي يبدأ هنا",heroTitle:"دليل الأفلام والمسلسلات\nالمتوفرة على تيليغرام",heroSub:"تصفّح المكتبة، تعرّف على تفاصيل العمل، واختر طريقة المشاهدة المناسبة.",about:"TeleMovies دليل عربي يجمع الأفلام والمسلسلات المتوفرة على تيليغرام في مكان واحد، مع وصف كل عمل وروابط الوصول إليه. الموقع لا يستضيف أي ملفات.",labels:{watch:"مشاهدة عبر تيليغرام",download:"تحميل العمل",message:"رابط الرسالة",channel:"رابط القناة",share:"مشاركة"},request:{text:"اطلب فيلم",url:"https://t.me/WaelKhaled3",color:"#d97706",hint:"لم تجد ما تبحث عنه؟ اطلب العمل وسنحاول إضافته."},colors:{watch:"#2aa7e3",download:"#1f9d8b",message:"#3b82c4",channel:"#5b7288",share:"#2b3a4c",watchNow:"#7c3aed"},playerTexts:{titleMovie:"مشاهدة الفيلم",titleSeries:"مشاهدة المسلسل",instructionMovie:"اختر الجزء عند توفره، ثم اختر السيرفر.",instructionSeries:"اختر الموسم والحلقة، ثم اختر السيرفر.",choosePart:"اختر الجزء",chooseSeason:"اختر الموسم",chooseEpisode:"اختر الحلقة",availableServers:"السيرفرات المتاحة",chooseServer:"اختر السيرفر",downloadMovie:"تحميل الفيلم",downloadEpisode:"تحميل الحلقة",previousEpisode:"الحلقة السابقة",nextEpisode:"الحلقة التالية"},}
 const T=k=>String(S[k]||"").trim()||D[k];
 const LB=k=>String((S.labels||{})[k]||"").trim()||D.labels[k];
 const CL=k=>HEX.test((S.colors||{})[k]||"")?S.colors[k]:(k==="watchNow"&&HEX.test((S.colors||{}).trailer||"")?(S.colors||{}).trailer:D.colors[k]);
@@ -97,7 +97,11 @@ swap("SEO_ABOUT",`<p>${br(T("about"))}</p>${adBox(ADS.bottom)}`);
 fs.writeFileSync("index.html",h);
 const catalog={channelUrl:data.channelUrl,categories:cats,site:S,movies:movies.map(m=>({id:m.id,title:m.title,titleAr:m.titleAr,slug:m._s,year:m.year,category:m.category,categories:mc(m),description:m.description,image:m._p||m.image,featured:!!m.featured,noticeOn:!!m.noticeOn,mediaType:m.mediaType||""}))};
 write("catalog.json",JSON.stringify(catalog));
-for(const m of movies)if(m.viewing&&m.viewing.enabled===true)write(`viewing/${m._s}.json`,JSON.stringify({id:m.id,viewing:m.viewing}));
+for(const m of movies)if(m.viewing&&m.viewing.enabled===true){
+ const viewing=JSON.parse(JSON.stringify(m.viewing));
+ viewing.texts={...D.playerTexts,...(S.playerTexts||{}),...(viewing.texts||{})};
+ write(`viewing/${m._s}.json`,JSON.stringify({id:m.id,viewing}));
+}
 write("sitemap.xml",`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${["/",...act.map(cp),...movies.map(mp),"/dmca","/privacy","/contact"].map(u=>`<url><loc>${esc(SITE+u)}</loc></url>`).join("")}</urlset>`);
 write("robots.txt",`User-agent: *\nAllow: /\nDisallow: /viewing/\n\n${["GPTBot","OAI-SearchBot","ChatGPT-User","ClaudeBot","Claude-SearchBot","PerplexityBot","Google-Extended","Applebot-Extended"].map(b=>`User-agent: ${b}\nAllow: /\n`).join("\n")}\nSitemap: ${SITE}/sitemap.xml\n`);
 write("404.html",`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>الصفحة غير موجودة | ${NAME}</title><link rel="stylesheet" href="/site.css"></head><body><main class="wrap"><h1>الصفحة غير موجودة</h1><p><a href="/">العودة إلى الرئيسية</a></p></main></body></html>`);

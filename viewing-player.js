@@ -54,13 +54,15 @@
 
   function setup(root, workId, config) {
     const isSeries = config.type === "series";
+    const words = config.texts && typeof config.texts === "object" ? config.texts : {};
+    const text = (key, fallback) => String(words[key] ?? "").trim() || fallback;
     const state = { season: 0, episode: 0, part: 0 };
     let hls = null;
     root.dataset.viewingReady = "1";
     root.innerHTML = `
       <div class="iv-top">
-        <h2>${isSeries ? "مشاهدة المسلسل" : "مشاهدة الفيلم"}</h2>
-        <p>اختر ${isSeries ? "الموسم والحلقة" : "الجزء عند توفره"}، ثم اختر السيرفر.</p>
+        <h2 class="iv-title"></h2>
+        <p class="iv-instruction"></p>
       </div>
       <div class="iv-content">
         <div class="iv-selectors"></div>
@@ -69,11 +71,15 @@
           <span aria-live="polite"></span>
           <button type="button" data-iv-next>الحلقة التالية</button>
         </div>
-        <div class="iv-downloads" hidden><button type="button" class="iv-download-toggle" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg><span>تحميل الحلقة</span></button><div class="iv-download-list" hidden></div></div><div class="iv-player" aria-live="polite"><div class="iv-empty">اختر حلقة أو سيرفراً لبدء المشاهدة.</div></div>
+        <div class="iv-downloads" hidden><button type="button" class="iv-download-toggle" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg><span></span></button><div class="iv-download-list" hidden></div></div><div class="iv-player" aria-live="polite"><div class="iv-empty">اختر حلقة أو سيرفراً لبدء المشاهدة.</div></div>
         <div class="iv-servers"></div>
         <p class="iv-note">التضمين يعمل بحسب سماح المصدر والمتصفح؛ لا يتجاوز الموقع قيود الاستضافة.</p>
       </div>`;
 
+    root.querySelector(".iv-title").textContent = text(isSeries ? "titleSeries" : "titleMovie", isSeries ? "مشاهدة المسلسل" : "مشاهدة الفيلم");
+    root.querySelector(".iv-instruction").textContent = text(isSeries ? "instructionSeries" : "instructionMovie", isSeries ? "اختر الموسم والحلقة، ثم اختر السيرفر." : "اختر الجزء عند توفره، ثم اختر السيرفر.");
+    root.querySelector("[data-iv-prev]").textContent = text("previousEpisode", "الحلقة السابقة");
+    root.querySelector("[data-iv-next]").textContent = text("nextEpisode", "الحلقة التالية");
     const selectors = root.querySelector(".iv-selectors");
     const player = root.querySelector(".iv-player");
     const serversBox = root.querySelector(".iv-servers");
@@ -86,7 +92,7 @@
       const usable = (Array.isArray(items) ? items : []).filter(item => item && item.enabled !== false && validURL(item.url));
       downloadList.replaceChildren(); downloadList.hidden = true; downloadToggle.setAttribute("aria-expanded", "false");
       downloadBox.hidden = usable.length === 0;
-      downloadToggle.querySelector("span").textContent = isSeries ? "تحميل الحلقة" : "تحميل الفيلم";
+      downloadToggle.querySelector("span").textContent = text(isSeries ? "downloadEpisode" : "downloadMovie", isSeries ? "تحميل الحلقة" : "تحميل الفيلم");
       usable.slice().sort((a,b)=>(+a.order||0)-(+b.order||0)).forEach(item => {
         const a = document.createElement("a"); a.className = "iv-quality"; a.href = validURL(item.url); a.target = "_blank"; a.rel = "nofollow noopener noreferrer";
         const name = String(item.quality === "custom" ? (item.customQuality || "جودة أخرى") : (item.quality || "جودة التحميل"));
@@ -172,6 +178,8 @@
       frame.title = source.name;
       frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
       frame.allowFullscreen = true;
+      frame.setAttribute("webkitallowfullscreen", "");
+      frame.setAttribute("mozallowfullscreen", "");
       frame.loading = "lazy";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
       frame.addEventListener("error", () => {
@@ -190,8 +198,12 @@
         return;
       }
       const heading = document.createElement("h3");
-      heading.textContent = "السيرفرات المتاحة" + (label ? ` — ${label}` : "");
+      heading.textContent = text("availableServers", "السيرفرات المتاحة") + (label ? ` — ${label}` : "");
       serversBox.append(heading);
+      const hint = document.createElement("p");
+      hint.className = "iv-server-hint";
+      hint.textContent = text("chooseServer", "اختر السيرفر");
+      serversBox.append(hint);
       const row = document.createElement("div");
       row.className = "iv-server-buttons";
       usable.slice().sort((a, b) => (+a.order || 0) - (+b.order || 0)).forEach((server, index) => {
@@ -244,7 +256,7 @@
       const partMode = modes.part || "auto";
       const showPart = partMode === "show" || (partMode === "auto" && parts.length > 1);
       if (showPart) {
-        addSelect("الجزء", parts.map((part, index) => ({ value: index, label: part.title || `الجزء ${part.number || index + 1}` })), 0, (index) => {
+        addSelect(text("choosePart", "اختر الجزء"), parts.map((part, index) => ({ value: index, label: part.title || `الجزء ${part.number || index + 1}` })), 0, (index) => {
           state.part = index;
           setServers(parts[index].servers, parts[index].title || `الجزء ${index + 1}`, parts[index].downloads || config.downloads || []);
         });
@@ -286,7 +298,7 @@
       const showEpisode = episodeMode === "show" || (episodeMode === "auto" && episodes.length > 1);
       const selected = Math.max(0, Math.min(preferredIndex, episodes.length - 1));
       if (showEpisode) {
-        episodeSelect = addSelect("الحلقة", episodes.map((episode, index) => ({
+        episodeSelect = addSelect(text("chooseEpisode", "اختر الحلقة"), episodes.map((episode, index) => ({
           value: index,
           label: episode.title || `الحلقة ${episode.number || index + 1}`
         })), selected, episodeServers);
@@ -298,7 +310,7 @@
       const seasonIndex = Number.isInteger(remembered.season) && seasons[remembered.season]
         ? remembered.season : 0;
       state.season = seasonIndex;
-      seasonSelect = addSelect("الموسم", seasons.map((season, index) => ({
+      seasonSelect = addSelect(text("chooseSeason", "اختر الموسم"), seasons.map((season, index) => ({
         value: index,
         label: `${season.title || `الموسم ${season.number || index + 1}`} · ${orderedEpisodes(index).length} حلقات`
       })), seasonIndex, (index) => {

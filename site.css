@@ -57,5 +57,4 @@ footer{border-top:1px solid var(--line);padding:30px 16px;text-align:center;colo
 @media(min-width:900px){.help-row{grid-template-columns:1fr 1fr}}
 
 
-.hc-watch{--hb:#d9770644;--hg:#d977061a;--ht:#f3dcc0}
 .watch-card .btn-a{width:100%}
