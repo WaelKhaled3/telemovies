@@ -100,7 +100,38 @@
         "دراما"
       ],
       "draft": false,
-      "trailer": ""
+      "trailer": "",
+      "viewing": {
+        "enabled": false,
+        "showButton": false,
+        "type": "series",
+        "parts": [],
+        "seasons": [
+          {
+            "number": 1,
+            "title": "الموسم 1",
+            "episodes": [
+              {
+                "number": 1,
+                "title": "الحلقة 1",
+                "servers": [
+                  {
+                    "name": "سيرفر 1",
+                    "url": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/niGK9H4lmz8?si=EqppHJayeVf-uWZS\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+                    "type": "auto",
+                    "enabled": true
+                  }
+                ],
+                "downloads": []
+              }
+            ]
+          }
+        ],
+        "servers": [],
+        "display": {},
+        "downloads": []
+      },
+      "mediaType": "series"
     },
     {
       "id": "work-1794306891650",
