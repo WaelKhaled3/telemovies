@@ -29,6 +29,8 @@
       "titleAr": "",
       "slug": "",
       "seoTitle": "",
+      "seoDescription": "",
+      "mediaType": "movie",
       "hideShare": false,
       "hideRequest": false,
       "hideReport": false,
@@ -42,7 +44,30 @@
         "كوميدي"
       ],
       "draft": false,
-      "trailer": "https://www.youtube.com/watch?v=xSG5UX0EQVg"
+      "viewing": {
+        "enabled": true,
+        "showButton": true,
+        "type": "movie",
+        "parts": [],
+        "seasons": [],
+        "servers": [
+          {
+            "name": "سيرفر 1",
+            "url": "https://1vid.xyz/embed-72cwwj94fg6f.html",
+            "type": "auto",
+            "enabled": true
+          }
+        ],
+        "display": {},
+        "downloads": [
+          {
+            "quality": "480p",
+            "url": "https://vsped-fs11-u3z.cdnz.quest/v/01/00193/imbt60ku5mr1_n/dCw.mp4?t=blWitvaejOTq7QBffPD27Q95iDPzIWo51qLc_PkSZoQ&s=1794571555&e=43200&v=566055&sp=10240&i=0.0",
+            "enabled": true
+          }
+        ],
+        "buttonLabel": "شاهد الآن"
+      }
     },
     {
       "id": "work-1794467686139",
@@ -62,6 +87,8 @@
       "titleAr": "كسر الخواطر",
       "slug": "",
       "seoTitle": "",
+      "seoDescription": "",
+      "mediaType": "series",
       "hideShare": false,
       "hideRequest": false,
       "hideReport": false,
@@ -75,7 +102,37 @@
         "دراما"
       ],
       "draft": false,
-      "trailer": ""
+      "viewing": {
+        "enabled": true,
+        "showButton": true,
+        "type": "series",
+        "parts": [],
+        "seasons": [
+          {
+            "number": 1,
+            "title": "الموسم 1",
+            "episodes": [
+              {
+                "number": 1,
+                "title": "الحلقة 1",
+                "servers": [
+                  {
+                    "name": "سيرفر 1",
+                    "url": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/niGK9H4lmz8?si=EqppHJayeVf-uWZS\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+                    "type": "auto",
+                    "enabled": true
+                  }
+                ],
+                "downloads": []
+              }
+            ]
+          }
+        ],
+        "servers": [],
+        "display": {},
+        "downloads": [],
+        "buttonLabel": "شاهد الآن"
+      }
     },
     {
       "id": "work-1794306891650",
@@ -558,6 +615,7 @@
     "pages": {
       "privacy": "# سياسة الخصوصية\n\n## ما الذي نجمعه؟\n\nلا يتطلب الموقع تسجيلاً ولا نطلب منك أي بيانات شخصية.\n\n## ملفات السجل (Log Files)\n\n- تاريخ ووقت الزيارة.\nالصفحات التي تم الدخول إليها والخروج منها.\n- عند فتح رابط تيليغرام تنتقل إلى تيليغرام وتسري عليك سياسته.\n- هذه البيانات تقنية بحتة ولا ترتبط بأي معلومات تحدد هويتك الشخصية.\n\n## التواصل\n\nلأي استفسار عن الخصوصية: https://t.me/WaelKhaled3",
       "contact": "# اتصل بنا\n\nللتواصل معنا عبر تيليغرام: https://t.me/WaelKhaled3\n\n## يمكنك مراسلتنا من أجل\n\n- الإبلاغ عن رابط لا يعمل أو معلومات غير صحيحة.\n- طلبات إزالة المحتوى (راجع صفحة DMCA).\n- الاستفسارات والتعاون.\n\nنرد على الرسائل بأسرع وقت ممكن."
-    }
+    },
+    "colors": {}
   }
 }
