@@ -212,7 +212,7 @@ renderMovies();$("bulkBtn").disabled=false;msg.textContent="تمت إضافة "+
 $("newPwBtn").onclick=async()=>{const p=$("newPw").value;if(p.length<12)return alert("اختر كلمة مرور من 12 حرفاً على الأقل.");$("newPwOut").hidden=false;$("newPwOut").value='const ADMIN_HASH="'+await pwHash(p)+'";'};
 let lastDraft="";setInterval(()=>{try{if($("app").hidden)return;const j=JSON.stringify(data);if(j!==lastDraft){lastDraft=j;localStorage.tm_draft=j}}catch{}},4000);
 const ADMIN_SALT="telemovies-admin-v1";
-const ADMIN_HASH="";
+const ADMIN_HASH="42024099e893780ef183c45663524f67a43a3ee9d58ffcf712860b95f329f9d1";
 async function pwHash(p){const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(p),"PBKDF2",false,["deriveBits"]);const b=await crypto.subtle.deriveBits({name:"PBKDF2",salt:new TextEncoder().encode(ADMIN_SALT),iterations:300000,hash:"SHA-256"},k,256);return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 function initGh(){$("tmdbKey").value=localStorage.tm_tmdb||"";$("tmdbRemember").checked=localStorage.tm_tmdb_off!=="1";const g=JSON.parse(localStorage.tm_gh||"{}");$("ghOwner").value=g.owner||"";$("ghRepo").value=g.repo||"";$("ghBranch").value=g.branch||"main";$("ghToken").value=sessionStorage.tm_tok||localStorage.tm_tok||"";$("ghRemember").checked=!!localStorage.tm_tok}
 function unlock(){$("gate").style.display="none";$("app").hidden=false;sessionStorage.tm_ok="1";initGh();load();tab(sessionStorage.tm_tab||"works")}
