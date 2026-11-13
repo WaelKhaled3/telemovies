@@ -87,6 +87,8 @@
       "titleAr": "كسر الخواطر",
       "slug": "",
       "seoTitle": "",
+      "seoDescription": "",
+      "mediaType": "series",
       "hideShare": false,
       "hideRequest": false,
       "hideReport": false,
@@ -100,10 +102,9 @@
         "دراما"
       ],
       "draft": false,
-      "trailer": "",
       "viewing": {
-        "enabled": false,
-        "showButton": false,
+        "enabled": true,
+        "showButton": true,
         "type": "series",
         "parts": [],
         "seasons": [
@@ -129,9 +130,9 @@
         ],
         "servers": [],
         "display": {},
-        "downloads": []
-      },
-      "mediaType": "series"
+        "downloads": [],
+        "buttonLabel": "شاهد الآن"
+      }
     },
     {
       "id": "work-1794306891650",
