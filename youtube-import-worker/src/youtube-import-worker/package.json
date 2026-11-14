@@ -1,8 +1,0 @@
-{
-  "name": "telemovies-youtube-import-worker",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "test": "node --test"
-  }
-}
