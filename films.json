@@ -566,7 +566,7 @@
         "servers": [
           {
             "name": "سيرفر 1",
-            "url": "<IFRAME SRC=\"https://iframe.andromedans.live/e/01M7B9CAMKYQ6M5NKK248N3F9Z\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360 allowfullscreen></IFRAME>",
+            "url": "<iframe src='https://vipserver.liiivideo.com/embed-qmizwhfn4cvl.html' scrolling='no' frameborder='0' width='100%' height='100%' allowfullscreen='true' webkitallowfullscreen='true' mozallowfullscreen='true'  referrerpolicy='no-referrer'></iframe>",
             "type": "auto",
             "enabled": true
           }
