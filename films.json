@@ -58,7 +58,7 @@
             "enabled": true,
             "security": {
               "status": "active",
-              "classification": "limited_ads",
+              "classification": "clean",
               "sandbox": [
                 "scripts",
                 "sameOrigin"
@@ -1178,9 +1178,9 @@
     "colors": {},
     "youtubeImportEndpoint": "https://telemovies-youtube-import.wk7.workers.dev/api/youtube-playlist",
     "playerProviderDomains": [
+      "liiivideo.com",
       "ok.ru",
       "uqload.vc",
-      "vipserver.liiivideo.com",
       "vk.com",
       "youtu.be",
       "youtube-nocookie.com",
