@@ -55,13 +55,33 @@
             "name": "سيرفر 1",
             "url": "https://1vid.xyz/embed-72cwwj94fg6f.html",
             "type": "auto",
-            "enabled": true
+            "enabled": true,
+            "security": {
+              "status": "active",
+              "classification": "limited_ads",
+              "sandbox": [
+                "scripts",
+                "sameOrigin"
+              ],
+              "fullscreen": true
+            }
           },
           {
             "name": "سيرفر 2",
             "url": "<IFRAME SRC=\"https://iframe.andromedans.live/e/u61RTMh8T0E\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360 allowfullscreen></IFRAME>",
             "type": "auto",
-            "enabled": true
+            "enabled": true,
+            "security": {
+              "status": "active",
+              "classification": "limited_ads",
+              "sandbox": [
+                "scripts",
+                "sameOrigin",
+                "forms",
+                "presentation"
+              ],
+              "fullscreen": true
+            }
           }
         ],
         "display": {},
@@ -1155,6 +1175,13 @@
       "contact": "# اتصل بنا\n\nللتواصل معنا عبر تيليغرام: https://t.me/WaelKhaled3\n\n## يمكنك مراسلتنا من أجل\n\n- الإبلاغ عن رابط لا يعمل أو معلومات غير صحيحة.\n- طلبات إزالة المحتوى (راجع صفحة DMCA).\n- الاستفسارات والتعاون.\n\nنرد على الرسائل بأسرع وقت ممكن."
     },
     "colors": {},
-    "youtubeImportEndpoint": "https://telemovies-youtube-import.wk7.workers.dev/api/youtube-playlist"
+    "youtubeImportEndpoint": "https://telemovies-youtube-import.wk7.workers.dev/api/youtube-playlist",
+    "playerProviderDomains": [
+      "youtube.com",
+      "youtube-nocookie.com",
+      "youtu.be",
+      "vk.com",
+      "ok.ru"
+    ]
   }
 }
