@@ -52,8 +52,25 @@
         "seasons": [],
         "servers": [
           {
-            "name": "سيرفر 1",
-            "url": "https://1vid.xyz/embed-72cwwj94fg6f.html",
+            "name": "سيرفر 2",
+            "url": "<IFRAME SRC=\"https://iframe.andromedans.live/e/u61RTMh8T0E\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360 allowfullscreen></IFRAME>",
+            "type": "auto",
+            "enabled": true,
+            "security": {
+              "status": "active",
+              "classification": "clean",
+              "sandbox": [
+                "scripts",
+                "sameOrigin",
+                "forms",
+                "presentation"
+              ],
+              "fullscreen": true
+            }
+          },
+          {
+            "name": "سيرفر 2",
+            "url": "<IFRAME SRC=\"https://uqload.vc/e/z86vbv4xabcb?strm7.uqload.vc/i/03/06240/z86vbv4xabcb\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=\"640\" HEIGHT=\"360\" allowfullscreen></IFRAME>",
             "type": "auto",
             "enabled": true,
             "security": {
@@ -62,23 +79,6 @@
               "sandbox": [
                 "scripts",
                 "sameOrigin"
-              ],
-              "fullscreen": true
-            }
-          },
-          {
-            "name": "سيرفر 2",
-            "url": "<IFRAME SRC=\"https://iframe.andromedans.live/e/u61RTMh8T0E\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360 allowfullscreen></IFRAME>",
-            "type": "auto",
-            "enabled": true,
-            "security": {
-              "status": "active",
-              "classification": "limited_ads",
-              "sandbox": [
-                "scripts",
-                "sameOrigin",
-                "forms",
-                "presentation"
               ],
               "fullscreen": true
             }
