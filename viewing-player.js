@@ -1,56 +1,21 @@
 (() => {
-  const validURL = (value) => {
-    try {
-      const url = new URL(String(value || ""));
-      return /^https?:$/.test(url.protocol) ? url.href : "";
-    } catch {
-      return "";
-    }
-  };
+  const securityPolicy = window.TMPlayerSecurity;
+  const validURL = (value) => securityPolicy?.extractURL(value)?.href || "";
 
   function normalizeSource(server) {
-    let raw = String(server.url || "").trim();
-    const iframe = raw.match(/<iframe\b[^>]*\bsrc\s*=\s*(["'])(.*?)\1/i);
-    if (iframe) raw = iframe[2].replace(/&amp;/g, "&");
-    const url = validURL(raw);
-    if (!url) return null;
-
-    let type = String(server.type || "auto").toLowerCase();
-    if (type === "auto") {
-      if (/\.m3u8(?:$|[?#])/i.test(url)) type = "hls";
-      else if (/\.(mp4|webm|ogg|mov|m4v)(?:$|[?#])/i.test(url)) type = "mp4";
-      else if (/youtu(?:be\.com|\.be)/i.test(url)) type = "youtube";
-      else if (/vk\.com/i.test(url)) type = "vk";
-      else if (/ok\.ru/i.test(url)) type = "ok";
-      else type = "iframe";
-    }
-    return { url, type, name: String(server.name || "سيرفر") };
+    if (!server || server.enabled === false || !securityPolicy) return null;
+    const policy = securityPolicy.validateServer(server, undefined, window.location.origin);
+    if (!policy.valid || !policy.active) return null;
+    return {
+      url: policy.url,
+      frameUrl: policy.frameUrl,
+      type: policy.type,
+      name: String(server.name || "سيرفر"),
+      security: policy.security,
+    };
   }
 
-  function iframeURL(source) {
-    const url = new URL(source.url);
-    if (source.type === "youtube") {
-      const id = url.hostname.includes("youtu.be")
-        ? url.pathname.slice(1)
-        : url.searchParams.get("v") || url.pathname.match(/\/(?:embed|shorts|live)\/([^/?]+)/)?.[1];
-      return id ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?playsinline=1` : "";
-    }
-    if (source.type === "vk") {
-      if (/video_ext\.php$/i.test(url.pathname)) return url.href;
-      const match = url.href.match(/video(-?\d+)_([0-9]+)/);
-      if (match) return `https://vk.com/video_ext.php?oid=${encodeURIComponent(match[1])}&id=${encodeURIComponent(match[2])}`;
-      const owner = url.searchParams.get("oid");
-      const video = url.searchParams.get("id");
-      return owner && video ? `https://vk.com/video_ext.php?oid=${encodeURIComponent(owner)}&id=${encodeURIComponent(video)}` : url.href;
-    }
-    if (source.type === "ok") {
-      if (/\/videoembed\//i.test(url.pathname)) return url.href;
-      const id = url.pathname.match(/\/video\/(\d+)/)?.[1];
-      return id ? `https://ok.ru/videoembed/${encodeURIComponent(id)}` : url.href;
-    }
-    // Other hosts (including UQload, Vidspeed and Vidrob) use the supplied embed URL.
-    return source.url;
-  }
+  function iframeURL(source) { return source.frameUrl || ""; }
 
   function setup(root, workId, config) {
     const isSeries = config.type === "series";
@@ -71,17 +36,19 @@
           <span aria-live="polite"></span>
           <button type="button" data-iv-next>الحلقة التالية</button>
         </div>
-        <div class="iv-downloads" hidden><button type="button" class="iv-download-toggle" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg><span></span></button><div class="iv-download-list" hidden></div></div><div class="iv-player" aria-live="polite"><div class="iv-empty">اختر حلقة أو سيرفراً لبدء المشاهدة.</div></div>
+        <div class="iv-downloads" hidden><button type="button" class="iv-download-toggle" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg><span></span></button><div class="iv-download-list" hidden></div></div><div class="iv-player" aria-live="polite"><div class="iv-empty">اختر حلقة أو سيرفراً لبدء المشاهدة.</div></div><p class="iv-security-note" hidden></p>
         <div class="iv-servers"></div>
-        <p class="iv-note">التضمين يعمل بحسب سماح المصدر والمتصفح؛ لا يتجاوز الموقع قيود الاستضافة.</p>
+        <p class="iv-note"></p>
       </div>`;
 
+    root.querySelector(".iv-note").textContent = text("embedNote", "التضمين يعمل بحسب سماح المصدر والمتصفح؛ لا يتجاوز الموقع قيود الاستضافة.");
     root.querySelector(".iv-title").textContent = text(isSeries ? "titleSeries" : "titleMovie", isSeries ? "مشاهدة المسلسل" : "مشاهدة الفيلم");
     root.querySelector(".iv-instruction").textContent = text(isSeries ? "instructionSeries" : "instructionMovie", isSeries ? "اختر الموسم والحلقة، ثم اختر السيرفر." : "اختر الجزء عند توفره، ثم اختر السيرفر.");
     root.querySelector("[data-iv-prev]").textContent = text("previousEpisode", "الحلقة السابقة");
     root.querySelector("[data-iv-next]").textContent = text("nextEpisode", "الحلقة التالية");
     const selectors = root.querySelector(".iv-selectors");
     const player = root.querySelector(".iv-player");
+    const securityNote = root.querySelector(".iv-security-note");
     const serversBox = root.querySelector(".iv-servers");
     const episodeNav = root.querySelector(".iv-episode-nav");
     const downloadBox = root.querySelector(".iv-downloads");
@@ -109,6 +76,7 @@
         hls = null;
       }
       player.replaceChildren();
+      if (securityNote) { securityNote.hidden = true; securityNote.textContent = ""; }
     }
 
     function play(server) {
@@ -170,31 +138,53 @@
 
       const src = iframeURL(source);
       if (!src) {
-        player.textContent = "تعذّر قراءة رابط التضمين؛ راجعه من لوحة التحكم.";
+        player.textContent = text("blockedProvider", "هذا المزود موقوف أو غير متوافق مع إعدادات الحماية. جرّب مزوداً آخر.");
         return;
       }
       const frame = document.createElement("iframe");
       frame.src = src;
       frame.title = source.name;
-      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
-      frame.allowFullscreen = true;
-      frame.setAttribute("webkitallowfullscreen", "");
-      frame.setAttribute("mozallowfullscreen", "");
+      const sandboxTokens = securityPolicy.sandboxTokens(source.security);
+      frame.setAttribute("sandbox", sandboxTokens.join(" "));
+      const allowedFeatures = ["encrypted-media", "picture-in-picture"];
+      if (source.security.fullscreen) allowedFeatures.push("fullscreen");
+      frame.allow = allowedFeatures.join("; ");
+      frame.allowFullscreen = source.security.fullscreen === true;
+      if (source.security.fullscreen) {
+        frame.setAttribute("webkitallowfullscreen", "");
+        frame.setAttribute("mozallowfullscreen", "");
+      }
       frame.loading = "lazy";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
       frame.addEventListener("error", () => {
         player.innerHTML = '<p class="iv-error">قد تمنع الاستضافة التضمين داخل الموقع؛ جرّب سيرفراً آخر.</p>';
       }, { once: true });
       player.append(frame);
+      if (securityNote) {
+        const limitedAds = source.security.classification === "limited_ads";
+        securityNote.textContent = limitedAds
+          ? text("limitedAds", "هذا المزود مصنف إعلانات محدودة. تمنع الحماية النوافذ المنبثقة ومحاولات الانتقال إلى الصفحة الأعلى، لكنها لا تضمن حظر الإعلانات داخل الإطار.")
+          : text("incompatibleProvider", "إذا لم يعمل المزود مع إعدادات الحماية، جرّب سيرفراً آخر. لا يسمح المشغل بالنوافذ المنبثقة أو الانتقال إلى الصفحة الأعلى.");
+        securityNote.hidden = false;
+      }
     }
 
     function setServers(servers, label, downloads = []) {
       setDownloads(downloads);
-      const usable = (servers || []).filter((server) => server && server.enabled !== false && normalizeSource(server));
+      const configured = Array.isArray(servers) ? servers.filter(Boolean) : [];
+      const usable = configured.filter((server) => normalizeSource(server));
       serversBox.replaceChildren();
       if (!usable.length) {
-        serversBox.innerHTML = '<p class="iv-error">لا توجد سيرفرات مفعّلة لهذا الاختيار؛ أضفها من لوحة التحكم.</p>';
+        const blocked = configured.length > 0;
+        const message = blocked
+          ? text("blockedProvider", "هذا المزود موقوف أو غير متوافق مع إعدادات الحماية. جرّب مزوداً آخر.")
+          : "لا توجد سيرفرات مفعّلة لهذا الاختيار؛ أضفها من لوحة التحكم.";
+        const note = document.createElement("p");
+        note.className = "iv-error";
+        note.textContent = message;
+        serversBox.append(note);
         player.innerHTML = '<div class="iv-empty">لا يتوفر رابط تشغيل لهذا الاختيار بعد.</div>';
+        if (securityNote) securityNote.hidden = true;
         return;
       }
       const heading = document.createElement("h3");
