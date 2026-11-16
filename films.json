@@ -571,13 +571,31 @@
             "name": "سيرفر 1",
             "url": "<IFRAME SRC=\"https://liiivideo.com/embed-qmizwhfn4cvl.html\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=\"640\" HEIGHT=\"360\" allowfullscreen></IFRAME>",
             "type": "auto",
-            "enabled": true
+            "enabled": true,
+            "security": {
+              "status": "active",
+              "classification": "limited_ads",
+              "sandbox": [
+                "scripts",
+                "sameOrigin"
+              ],
+              "fullscreen": true
+            }
           },
           {
             "name": "سيرفر 2",
-            "url": "<IFRAME SRC=\"https://hgcloud.to/e/27xr7769sq8z\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360 allowfullscreen></IFRAME>",
+            "url": "<IFRAME SRC=\"https://liiivideo.com/embed-qmizwhfn4cvl.html\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=\"640\" HEIGHT=\"360\" allowfullscreen></IFRAME>",
             "type": "auto",
-            "enabled": true
+            "enabled": true,
+            "security": {
+              "status": "active",
+              "classification": "limited_ads",
+              "sandbox": [
+                "scripts",
+                "sameOrigin"
+              ],
+              "fullscreen": true
+            }
           }
         ],
         "display": {},
@@ -1162,6 +1180,7 @@
     "playerProviderDomains": [
       "ok.ru",
       "uqload.vc",
+      "vipserver.liiivideo.com",
       "vk.com",
       "youtu.be",
       "youtube-nocookie.com",
