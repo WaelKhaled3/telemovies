@@ -45,52 +45,20 @@
       ],
       "draft": false,
       "viewing": {
-        "enabled": true,
+        "enabled": false,
         "showButton": true,
         "type": "movie",
         "parts": [],
         "seasons": [],
         "servers": [
           {
-            "name": "سيرفر 2",
-            "url": "<IFRAME SRC=\"https://iframe.andromedans.live/e/u61RTMh8T0E\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360 allowfullscreen></IFRAME>",
-            "type": "auto",
-            "enabled": true,
-            "security": {
-              "status": "active",
-              "classification": "clean",
-              "sandbox": [
-                "scripts",
-                "sameOrigin",
-                "forms",
-                "presentation"
-              ],
-              "fullscreen": true
-            }
-          },
-          {
-            "name": "سيرفر 2",
+            "name": "سيرفر 1",
             "url": "<IFRAME SRC=\"https://uqload.vc/e/z86vbv4xabcb?strm7.uqload.vc/i/03/06240/z86vbv4xabcb\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=\"640\" HEIGHT=\"360\" allowfullscreen></IFRAME>",
             "type": "auto",
             "enabled": true,
             "security": {
               "status": "active",
               "classification": "limited_ads",
-              "sandbox": [
-                "scripts",
-                "sameOrigin"
-              ],
-              "fullscreen": true
-            }
-          },
-          {
-            "name": "سيرفر 3",
-            "url": "<IFRAME SRC=\"https://uqload.vc/e/z86vbv4xabcb?strm7.uqload.vc/i/03/06240/z86vbv4xabcb\" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=\"640\" HEIGHT=\"360\" allowfullscreen></IFRAME>",
-            "type": "auto",
-            "enabled": true,
-            "security": {
-              "status": "active",
-              "classification": "rejected",
               "sandbox": [
                 "scripts",
                 "sameOrigin"
@@ -1192,11 +1160,12 @@
     "colors": {},
     "youtubeImportEndpoint": "https://telemovies-youtube-import.wk7.workers.dev/api/youtube-playlist",
     "playerProviderDomains": [
-      "youtube.com",
-      "youtube-nocookie.com",
-      "youtu.be",
+      "ok.ru",
+      "uqload.vc",
       "vk.com",
-      "ok.ru"
+      "youtu.be",
+      "youtube-nocookie.com",
+      "youtube.com"
     ]
   }
 }
